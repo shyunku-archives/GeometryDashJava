@@ -1,0 +1,27 @@
+"data": {
+	"recentUpdate": "201910052100",
+	"version": "1.0",
+	"environment": {
+		"defaultSpeed": 5,
+		"gravity": 2.2,
+	},
+	"block":{
+		"default_block": {
+			"id": 1,
+			"imageFileName": "default_block.png",
+		}
+	},
+	"spike": {
+		"default_spike": {
+			"id": 2,
+			"imageFileName": "default_spike.png",
+		}
+	},
+	"jumpball":{
+		"yelloJumpBall":{
+			"id": 3,
+			"imageFileName": "yelloJumpBall.png",
+			"jumpHeight": 2.5,
+		}
+	}
+}
