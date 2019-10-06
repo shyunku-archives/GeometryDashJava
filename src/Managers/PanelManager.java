@@ -37,7 +37,7 @@ public class PanelManager {
 		Functions.setInitialFrameBounds(frame);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		frame.setLocation(-3500, 150);
+		frame.setLocation(150, 150);
 		
 		frame.addKeyListener(new KeyListener() {
 
@@ -85,7 +85,7 @@ public class PanelManager {
 			}
 		}).start();
 	
-		GoToSelectMultiplayModePanel();
+		//GoToSelectMultiplayModePanel();
 	}
 	
 	public static void GoToMainPanel() {

@@ -17,7 +17,7 @@ import Managers.PanelManager;
 import Managers.SoundManager;
 import Network.Engine.NetworkManager;
 
-public class Main {
+public class MainStarter {
 	public static void main(String[] args) {
 		ManagerManager.sm = new SoundManager();
 		ManagerManager.im = new ImageManager();
