@@ -13,6 +13,7 @@ import javax.swing.text.DefaultStyledDocument;
 
 import Core.Constants.ManagerManager;
 import Engines.DocumentSizeFilter;
+import Managers.FontManager;
 
 import javax.swing.text.*;
 import javax.swing.*;
@@ -32,7 +33,9 @@ public class TriggeredTextArea extends JTextArea{
 		setCaretColor(new Color(0,0,0,0));
 		setBackground(new Color(0,0,0,0));
 		setForeground(new Color(0,0,0,0));
-		disableKeys(getInputMap(), new String[]{"ENTER"});
+		this.setFont(FontManager.getFont(0f));
+		DefaultCaret caret = (DefaultCaret)this.getCaret();
+		disableKeys(getInputMap(), new String[]{"ENTER", "LEFT", "RIGHT", "UP", "DOWN"});
 		this.addMouseListener(new MouseListener() {
 
 			@Override

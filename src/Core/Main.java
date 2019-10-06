@@ -10,16 +10,20 @@ import javax.swing.JFrame;
 import Core.Constants.Dimensions;
 import Core.Constants.Global;
 import Core.Constants.ManagerManager;
+import Managers.ErrorManager;
 import Managers.FontManager;
 import Managers.ImageManager;
 import Managers.PanelManager;
 import Managers.SoundManager;
+import Network.Engine.NetworkManager;
 
 public class Main {
 	public static void main(String[] args) {
 		ManagerManager.sm = new SoundManager();
 		ManagerManager.im = new ImageManager();
 		ManagerManager.pm = new PanelManager();
+		ManagerManager.em = new ErrorManager();
+		ManagerManager.nm = new NetworkManager();
 		
 		Global.startFlag = System.currentTimeMillis();
 		

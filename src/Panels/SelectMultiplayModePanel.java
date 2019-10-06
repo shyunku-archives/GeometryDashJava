@@ -17,14 +17,19 @@ import javax.swing.JPanel;
 import Core.Functions;
 import Core.Constants.Global;
 import Core.Constants.ManagerManager;
+import Managers.ErrorManager;
 import Managers.ImageManager;
+import Objects.ErrorMessager;
 import Objects.TriggeredButton;
 import Objects.TriggeredButtonListener;
+import Objects.TriggeredTextArea;
 
 public class SelectMultiplayModePanel extends JPanel{
 	Functions f = new Functions();
 	TriggeredButton goBackBtn;
 	TriggeredButton participateBtn, createBtn;
+	TriggeredTextArea ipTextArea, pwTextArea, nicknameTextArea;
+	ErrorMessager errorMsg = new ErrorMessager();
 	
 	@Override
 	public void paintComponent(Graphics gd) {
@@ -42,21 +47,35 @@ public class SelectMultiplayModePanel extends JPanel{
 		f.drawImage(g, ImageManager.OTHER_MAPS_CORNER_LEFT_LOWER_TILE, 0, 549);
 		f.drawImage(g, ImageManager.OTHER_MAPS_CORNER_RIGHT_LOWER_TILE, getSize().width - 195, 549);
 		
+		String areaText;
 		
 		g.setColor(new Color(0,55, 163));
 		g.fillRoundRect(150, 160, 650, 50, 30, 30);
+		areaText = ipTextArea.getText();
+		f.drawFancyString(g, areaText, 170, 170, 30f, new Color(200, 200, 200));
+		
+		g.setColor(new Color(0,55, 163));
 		g.fillRoundRect(150, 280, 650, 50, 30, 30);
+		areaText = nicknameTextArea.getText();
+		f.drawFancyString(g, areaText, 170, 290, 30f, new Color(200, 200, 200));
+		
+		g.setColor(new Color(0,55, 163));
 		g.fillRoundRect(150, 400, 650, 50, 30, 30);
+		areaText = pwTextArea.getText();
+		f.drawFancyString(g, areaText, 170, 410, 30f, new Color(200, 200, 200));
 		//f.drawFancyString(g, curMap.getMapName(), getSize().width/2 - f.getFontWidth(g, curMap.getMapName(), 60f)/2, 55, 65f, Color.WHITE);
 		
 		f.drawFuckingFancyString(g, "Join/Create Room", 150, 20, 60f, Color.ORANGE);
 		
 		f.drawFuckingFancyString(g, "IP address (Participants Only)", 150, 120, 30f, Color.ORANGE);
-		f.drawFuckingFancyString(g, "Password", 150, 240, 30f, Color.ORANGE);
-		f.drawFuckingFancyString(g, "Nickname", 150, 360, 30f, Color.GREEN);
+		f.drawFuckingFancyString(g, "Password", 150, 360, 30f, Color.ORANGE);
+		f.drawFuckingFancyString(g, "Nickname", 150, 240, 30f, Color.GREEN);
 		
 		f.drawFuckingFancyString(g, "Join Server", 1000, 195, 30f);
 		f.drawFuckingFancyString(g, "Create Server", 1000, 325, 30f);
+		
+		
+		f.drawFuckingFancyString(g, errorMsg.getStateMsg(), getSize().width/2 - errorMsg.getStringWidth(g, 30f)/2, 550, 30f, Color.RED);
 		
 		
 		goBackBtn.draw(g);
@@ -84,12 +103,30 @@ public class SelectMultiplayModePanel extends JPanel{
 			
 		});
 		
+		ipTextArea = new TriggeredTextArea(new Rectangle(150, 160, 650, 50), 15);
+		nicknameTextArea = new TriggeredTextArea(new Rectangle(150, 280, 650, 50),12);
+		pwTextArea = new TriggeredTextArea(new Rectangle(150, 400, 650, 50), 20);
+		this.add(ipTextArea);
+		this.add(pwTextArea);
+		this.add(nicknameTextArea);
+		
 		participateBtn = new TriggeredButton(new Rectangle(900, 170, 80, 80), ImageManager.SERVER_PARTICIPATE_BUTTON);
 		participateBtn.setClickListener(new TriggeredButtonListener() {
 			@Override
 			public void onClickListener() {
 				// TODO Auto-generated method stub
-				ManagerManager.pm.GoToOtherModeSelectPanel();
+				if(ipTextArea.getText().length()==0) {
+					errorMsg.setError(ErrorManager.IP_ADDRESS_EMPTY_ERROR);
+					return;
+				}
+				if(!f.isValidIPAddress(ipTextArea.getText())) {
+					errorMsg.setError(ErrorManager.IP_ADDRESS_WRONG_FORMAT);
+					return;
+				}
+				String str = nicknameTextArea.getText();
+				if(str.length()==0)
+					str = f.generateRandomNickname();
+				ManagerManager.pm.GoToWaitingRoomPanel(false, ipTextArea.getText(), pwTextArea.getText(), str);
 			}
 			
 		});
@@ -100,14 +137,17 @@ public class SelectMultiplayModePanel extends JPanel{
 			@Override
 			public void onClickListener() {
 				// TODO Auto-generated method stub
-				ManagerManager.pm.GoToOtherModeSelectPanel();
+				String str = nicknameTextArea.getText();
+				if(str.length()==0)
+					str = f.generateRandomNickname();
+				ManagerManager.pm.GoToWaitingRoomPanel(true, null, pwTextArea.getText(), str);
 			}
 			
 		});
 		this.add(createBtn);
 		
 		
-		goBackBtn = new TriggeredButton(new Rectangle(20, 15, 80, 80), ImageManager.GO_BACK_GREEN_BUTTON);
+		goBackBtn = new TriggeredButton(new Rectangle(20, 15, 80, 80), ImageManager.GO_BACK_PINK_BUTTON);
 		goBackBtn.setClickListener(new TriggeredButtonListener() {
 			@Override
 			public void onClickListener() {

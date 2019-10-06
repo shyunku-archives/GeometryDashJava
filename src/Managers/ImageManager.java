@@ -36,8 +36,8 @@ public class ImageManager {
 	public static final int GO_BACK_GREEN_BUTTON = 2015;
 	public static final int MY_LEVELS_UPPER_BAR = 2016;
 	public static final int MY_LEVELS_LOWER_BAR = 2017;
-	public static final int MY_LEVELS_LEFT_SIDE_BAR = 2018;
-	public static final int MY_LEVELS_RIGHT_SIDE_BAR = 2019;
+	public static final int LEFT_SIDE_BAR = 2018;
+	public static final int RIGHT_SIDE_BAR = 2019;
 	public static final int GO_BACK_PINK_BUTTON = 2020;
 	public static final int VIEW_BUTTON = 2021;
 	public static final int EDIT_MY_LEVEL_BUTTON = 2022;
@@ -50,6 +50,10 @@ public class ImageManager {
 	public static final int PARTICIPATE_MULTIPLAY_BUTTON = 2029;
 	public static final int SERVER_PARTICIPATE_BUTTON = 2030;
 	public static final int SERVER_CREATE_BUTTON = 2031;
+	public static final int WAITING_ROOM_UPPER_BAR = 2032;
+	public static final int WAITING_ROOM_LOWER_BAR = 2033;
+	public static final int WAITING_ROOM_LEFT_SIDE_BAR = 2034;
+	public static final int WAITING_ROOM_RIGHT_SIDE_BAR = 2035;
 	
 	public HashMap<Integer, BufferedImage> imageBundle = new HashMap<>();
 	public HashMap<String, BufferedImage> gameObjectBundle = new HashMap<>();
@@ -72,8 +76,8 @@ public class ImageManager {
 		putImage(GO_BACK_GREEN_BUTTON, "go_back_green_button.png", 80, 80);
 		putResizedImage(MY_LEVELS_UPPER_BAR, "upper_bar.png", 0.5f);
 		putResizedImage(MY_LEVELS_LOWER_BAR, "lower_bar.png", 0.5f);
-		putImage(MY_LEVELS_LEFT_SIDE_BAR, "side_bar.png");
-		putImage(MY_LEVELS_RIGHT_SIDE_BAR, "side_bar.png", 180);
+		putImage(LEFT_SIDE_BAR, "side_bar.png");
+		putImage(RIGHT_SIDE_BAR, "side_bar.png", 180);
 		putImage(GO_BACK_PINK_BUTTON, "go_back_pink_button.png", 71, 80);
 		putResizedImage(VIEW_BUTTON, "green_template_button.png", 0.35f);
 		putResizedImage(EDIT_MY_LEVEL_BUTTON, "edit_button.png", 0.6f);
@@ -86,6 +90,8 @@ public class ImageManager {
 		putImage(PARTICIPATE_MULTIPLAY_BUTTON, "multiplay_button.png", 160, 160);
 		putImage(SERVER_CREATE_BUTTON, "add_button.png", 80, 80);
 		putImage(SERVER_PARTICIPATE_BUTTON, "participate_button.png", 80, 80);
+		putResizedImage(WAITING_ROOM_UPPER_BAR, "upper_bar.png", 0.3f);
+		putResizedImage(WAITING_ROOM_LOWER_BAR, "lower_bar.png", 0.3f);
 	}
 	
 	public static String getImagePath(String filename) {

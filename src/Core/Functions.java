@@ -17,16 +17,113 @@ import java.awt.Shape;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Core.Constants.Dimensions;
 import Core.Constants.Global;
 import Core.Constants.ManagerManager;
 import Managers.FontManager;
+import Managers.ImageManager;
 import Objects.SoundTrack;
 
-public class Functions {
+public class Functions<Temp> {
+	public static String generateRandomNickname() {
+		Random r = new Random();
+		char s[] = {'a','e','i','o','u'};
+		int cset = (int)'z' - (int)'a' + 1;
+		int st = (int)'a';
+		String name = "";
+		for(int i=0;i<5;i++)
+			if(i%2==1)name += s[r.nextInt(5)];
+			else name += (char)(st+r.nextInt(cset));
+		
+		name += String.format("%04d", r.nextInt(10000))+"";
+		return name;
+	}
+	
+	public static void print(Object obj) {
+		System.out.println(obj);
+	}
+	
+	public void cprint(String Location, String Message) {
+		System.out.println(Location+" : "+Message);
+	}
+	public void cprint(String Message) {
+		System.out.println(Message);
+	}
+	public void printPair(String Location, Temp...par){
+		String buffer = Location+" : (";
+		int paramCount = par.length;
+		int curCount = 0;
+		for(Temp t : par) {
+			buffer += t.toString();
+			if(curCount!= paramCount-1)
+				buffer += ", ";
+			curCount++;
+		}
+		buffer += ")";
+		System.out.println(new Throwable().getStackTrace()[1].getMethodName()+"() says | "+ buffer);
+	}
+	
+	public void printPair(Temp...par){
+		String buffer = "Pair : (";
+		int paramCount = par.length;
+		int curCount = 0;
+		for(Temp t : par) {
+			buffer += t.toString();
+			if(curCount!= paramCount-1)
+				buffer += ", ";
+			curCount++;
+		}
+		buffer += ")";
+		System.out.println(buffer);
+	}
+	
+	public void setFullScreen(JFrame jframe) {
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+		device.setFullScreenWindow(jframe);
+	}
+	
+	public void printDebugFlag() {
+		System.out.println("Flag Activated in "
+				+new Throwable().getStackTrace()[3].getMethodName()+"."
+				+new Throwable().getStackTrace()[2].getMethodName()+"."
+				+new Throwable().getStackTrace()[1].getMethodName()+"()");
+	}
+	
+	public void printFatalError() {
+		System.out.println("Fatal Error!");
+		new Throwable().printStackTrace();
+		System.exit(0);
+	}
+	
+	public void printDebugWithMessage(String str) {
+		System.out.println("Flag Activated in "
+				+new Throwable().getStackTrace()[3].getMethodName()+"."
+				+new Throwable().getStackTrace()[2].getMethodName()+"."
+				+new Throwable().getStackTrace()[1].getMethodName()+"() : "+str);
+	}
+	
+	public static void drawCornerTileLowerRight(Graphics2D g, JPanel p) {
+		drawImage(g, ImageManager.OTHER_MAPS_CORNER_RIGHT_LOWER_TILE, p.getSize().width - 195, 549);
+	}
+	
+	public static void drawCornerTileUpperLeft(Graphics2D g) {
+		drawImage(g, ImageManager.OTHER_MAPS_CORNER_LEFT_UPPER_TILE, 0, 0);
+	}
+	
+	public static boolean isValidIPAddress(String address) {
+		final String IPADDRESS_PATTERN = 
+				"^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+				"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+				"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+				"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+		return address.matches(IPADDRESS_PATTERN);
+	}
+	
 	public static String getFilenameNoExtension(String filename) {
 		int i = filename.lastIndexOf('.');
 		return filename.substring(0, i);

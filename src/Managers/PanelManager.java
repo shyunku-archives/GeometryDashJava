@@ -19,6 +19,7 @@ import Panels.MapSettingPanel;
 import Panels.OfflineMapSelectPanel;
 import Panels.OtherModeSelectPanel;
 import Panels.SelectMultiplayModePanel;
+import Panels.WaitingRoomPanel;
 
 public class PanelManager {
 	public static JFrame frame = new JFrame("Geometry Dash");
@@ -30,6 +31,7 @@ public class PanelManager {
 	public static CreatedMapListPanel createdMapListPanel;
 	public static EditMapPanel editMapPanel;
 	public static SelectMultiplayModePanel selectMultiplayModePanel;
+	public static WaitingRoomPanel waitingRoomPanel;
 	
 	public static void InitialExecute() {
 		Functions.setInitialFrameBounds(frame);
@@ -140,5 +142,16 @@ public class PanelManager {
 		
 		frame.add(logPanel);
 		frame.add(selectMultiplayModePanel);
+	}
+	
+	public static void GoToWaitingRoomPanel(boolean isCreator, String IPAddress, String password, String nickname) {
+		frame.getContentPane().removeAll();
+		if(isCreator)
+			waitingRoomPanel = new WaitingRoomPanel(frame, password, nickname);
+		else
+			waitingRoomPanel = new WaitingRoomPanel(frame, IPAddress, password, nickname);
+		
+		frame.add(logPanel);
+		frame.add(waitingRoomPanel);
 	}
 }

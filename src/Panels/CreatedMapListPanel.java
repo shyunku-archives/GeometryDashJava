@@ -61,9 +61,7 @@ public class CreatedMapListPanel extends JPanel{
 		f.drawFancyString(g, "new level", 1080, 65, 30f, Color.WHITE);
 		
 		String areatext = newLevelNameTextArea.getText();
-		if(areatext.length() != 0) {
-			f.drawFancyString(g, areatext, getSize().width/2 - f.getFontWidth(g, areatext, 45f)/2, 43, 45f, Color.WHITE);
-		}
+		f.drawFancyString(g, areatext, getSize().width/2 - f.getFontWidth(g, areatext, 45f)/2, 43, 45f, Color.WHITE);
 		
 		g.setColor(new Color(191, 114, 62));
 		g.fillRect(310, 190, 740, 435);
@@ -73,8 +71,8 @@ public class CreatedMapListPanel extends JPanel{
 		f.drawImage(g, ImageManager.OTHER_MAPS_CORNER_RIGHT_LOWER_TILE, getSize().width - 195, 549);
 		createMapBtn.draw(g, 1000, 35);
 		
-		f.drawImage(g, f.resizeImage(ImageManager.MY_LEVELS_LEFT_SIDE_BAR, 30, 430), 298, 195);
-		f.drawImage(g, f.resizeImage(ImageManager.MY_LEVELS_RIGHT_SIDE_BAR, 30, 430), 1027, 195);
+		f.drawImage(g, f.resizeImage(ImageManager.LEFT_SIDE_BAR, 30, 430), 298, 195);
+		f.drawImage(g, f.resizeImage(ImageManager.RIGHT_SIDE_BAR, 30, 430), 1027, 195);
 		
 		f.drawImage(g, ImageManager.MY_LEVELS_UPPER_BAR, 285, 130);
 		f.drawImage(g, ImageManager.MY_LEVELS_LOWER_BAR, 290, 620);
