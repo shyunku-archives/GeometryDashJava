@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import Core.Functions;
+import Network.Objects.Chat;
 import Network.Objects.Player;
 import Network.Objects.WaitingRoomInfo;
 
@@ -59,23 +60,28 @@ public class GameServer {
 										
 										switch(tag) {
 										case NetworkManager.PARTICIPATING_SERVER:
+											if(roomInfo.getPlayerNum() == NetworkManager.MAX_CAPACITY){
+												refuse(NetworkManager.PARTICIPATE_REFUSE_ROOM_FULL, socket);
+												break;
+											}
 											String acceptedPW = body.get("password").getAsString();
 											String sender = body.get("player").getAsJsonObject().get("playerNickname").getAsString();
 											if(!roomInfo.getRoomPW().equals(acceptedPW)) {
-												PrintWriter temp = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-												temp.println(jgen.bindAll(NetworkManager.PARTICIPATE_REFUSE, roomInfo.getRoomMasterName(), jgen.getEmptyData()));
-												temp.flush();
-												temp.close();
-												socket.close();
+												refuse(NetworkManager.PARTICIPATE_REFUSE_WRONG_PASSWORD, socket);
 												break;
 											}
 											Player newPlayer = new Gson().fromJson(body.get("player").getAsJsonObject(), Player.class);
 											roomInfo.addPlayer(newPlayer);
+											roomInfo.addChat(new Chat("SYSTEM", sender + " joinned!", true));
 											addWriter(socket, sender);
 											broadcast(sender, jgen.bindAll(NetworkManager.PARTICIPATE_ACCPETED, roomInfo.getRoomMasterName(), jgen.getEmptyData()));
-											broadcast(jgen.bindAll(NetworkManager.WAITING_ROOM_INFO_LOAD, roomInfo.getRoomMasterName(), roomInfo.getJson()));
+											break;
+										case NetworkManager.NORMAL_CHAT_SEND:
+											Chat newChat = new Gson().fromJson(body, Chat.class);
+											roomInfo.addChat(newChat);
 											break;
 										}
+										broadcast(jgen.bindAll(NetworkManager.WAITING_ROOM_INFO_LOAD, roomInfo.getRoomMasterName(), roomInfo.getJson()));
 									} catch (IOException e) {
 										e.printStackTrace();
 									}
@@ -96,6 +102,21 @@ public class GameServer {
 	private void removeWriter(String username) {
 		synchronized(writermap) {
 			writermap.remove(username);
+		}
+	}
+	
+	private void refuse(int reason, Socket socket) {
+		JsonDataGenerator jgen = new JsonDataGenerator();
+		PrintWriter temp;
+		try {
+			temp = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+			temp.println(jgen.bindAll(reason, roomInfo.getRoomMasterName(), jgen.getEmptyData()));
+			temp.flush();
+			temp.close();
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

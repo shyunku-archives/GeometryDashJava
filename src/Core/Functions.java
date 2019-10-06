@@ -30,6 +30,22 @@ import Managers.ImageManager;
 import Objects.SoundTrack;
 
 public class Functions<Temp> {
+	public static void setStartTick() {
+		Global.checkStart = System.nanoTime();
+	}
+	
+	public static void setEndTick() {
+		Global.checkEnd = System.nanoTime();
+	}
+	
+	public static long getCurTime() {
+		return System.currentTimeMillis();
+	}
+	
+	public static long getTickTime() {
+		return Global.checkEnd-Global.checkStart;
+	}
+	
 	public static String generateRandomNickname() {
 		Random r = new Random();
 		char s[] = {'a','e','i','o','u'};
@@ -222,11 +238,10 @@ public class Functions<Temp> {
 		AffineTransform orig = g.getTransform();
 		Font f = FontManager.getFont(size);
 		TextLayout tl = new TextLayout(str, f, g.getFontRenderContext());
-		AffineTransform transform = new AffineTransform();
+		AffineTransform transform = g.getTransform();
 		FontMetrics fm = g.getFontMetrics(f);
 		Shape outline = tl.getOutline(null);
 		Rectangle bound = outline.getBounds();
-		transform = g.getTransform();
 		transform.translate(x, y+fm.getAscent());
 		
 		g.setTransform(transform);
@@ -259,6 +274,11 @@ public class Functions<Temp> {
 		g.draw(outline);
 		
 		g.setTransform(orig);
+	}
+	
+	public static void drawFancyRightAlignedString(Graphics2D g, String str, int x, int y, float size, Color c) {
+		int newX = x - g.getFontMetrics(FontManager.getFont(size)).stringWidth(str);
+		drawFancyString(g, str, newX, y, size, c);
 	}
 	
 	public static void drawFuckingFancyString(Graphics2D g, String str, int x, int y, float size) {

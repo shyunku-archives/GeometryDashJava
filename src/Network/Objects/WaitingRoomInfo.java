@@ -14,6 +14,7 @@ public class WaitingRoomInfo extends JsonFormattable{
 	private String roomMasterName;
 
 	private ArrayList<Player> players = new ArrayList<>();
+	private ArrayList<Chat> chats = new ArrayList<>();
 	
 	public WaitingRoomInfo(String roomName, String roomIP, String pw, String masterName) {
 		super();
@@ -56,14 +57,6 @@ public class WaitingRoomInfo extends JsonFormattable{
 		players.remove(p);
 	}
 	
-	public Player getPlayer(String name) {
-		for(Player p : players)
-			if(p.getPlayerNickname().equals(name))
-				return p;
-		new FatalException().throwThis();
-		return null;
-	}
-	
 	public int getPlayerNum() {
 		return players.size();
 	}
@@ -74,5 +67,13 @@ public class WaitingRoomInfo extends JsonFormattable{
 
 	public void setRoomMasterName(String roomMasterName) {
 		this.roomMasterName = roomMasterName;
+	}
+
+	public ArrayList<Chat> getChats() {
+		return chats;
+	}
+	
+	public void addChat(Chat chat) {
+		chats.add(chat);
 	}
 }

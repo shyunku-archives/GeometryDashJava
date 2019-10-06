@@ -157,7 +157,7 @@ public class CreatedMapListPanel extends JPanel{
 		});
 		this.add(createMapBtn);
 		
-		newLevelNameTextArea = new TriggeredTextArea(new Rectangle(383, 30, 600, 90), 15);
+		newLevelNameTextArea = new TriggeredTextArea(new Rectangle(383, 30, 600, 90), 15, false);
 		this.add(newLevelNameTextArea);
 		
 		this.addMouseWheelListener(new MouseWheelListener() {

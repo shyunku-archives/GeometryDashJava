@@ -32,6 +32,8 @@ public class OtherModeSelectPanel extends JPanel{
 		Functions.smoothRendering(g);
 		Global.drawTick++;
 		
+		f.setStartTick();
+		
 		GradientPaint gp = new GradientPaint(0, 0, new Color(0,98,255), 0, getSize().height, new Color(0, 69, 181), true);
 		g.setPaint(gp);
 		g.fillRect(0, 0, getSize().width, getSize().height);
@@ -45,6 +47,8 @@ public class OtherModeSelectPanel extends JPanel{
 //		f.drawRefinedString(g, "Multiplay", 577, 182, 25f, new Color(80,80,80));
 //		f.drawFancyString(g, "Multiplay", 575, 180, 25f);
 		f.drawFuckingFancyString(g, "Multiplay", 575, 180, 25f);
+		
+		f.setEndTick();
 	}
 	
 	public OtherModeSelectPanel(JFrame frame) {

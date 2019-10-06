@@ -50,10 +50,11 @@ public class ImageManager {
 	public static final int PARTICIPATE_MULTIPLAY_BUTTON = 2029;
 	public static final int SERVER_PARTICIPATE_BUTTON = 2030;
 	public static final int SERVER_CREATE_BUTTON = 2031;
-	public static final int WAITING_ROOM_UPPER_BAR = 2032;
-	public static final int WAITING_ROOM_LOWER_BAR = 2033;
-	public static final int WAITING_ROOM_LEFT_SIDE_BAR = 2034;
-	public static final int WAITING_ROOM_RIGHT_SIDE_BAR = 2035;
+	public static final int WAITING_ROOM_PLAYER_LIST_UPPER_BAR = 2032;
+	public static final int WAITING_ROOM_PLAYER_LIST_LOWER_BAR = 2033;
+	public static final int WAITING_ROOM_CHAT_UPPER_BAR = 2034;
+	public static final int WAITING_ROOM_CHAT_LOWER_BAR = 2035;
+	public static final int WAITING_ROOM_CHAT_MIDDLE_BAR = 2036;
 	
 	public HashMap<Integer, BufferedImage> imageBundle = new HashMap<>();
 	public HashMap<String, BufferedImage> gameObjectBundle = new HashMap<>();
@@ -90,8 +91,11 @@ public class ImageManager {
 		putImage(PARTICIPATE_MULTIPLAY_BUTTON, "multiplay_button.png", 160, 160);
 		putImage(SERVER_CREATE_BUTTON, "add_button.png", 80, 80);
 		putImage(SERVER_PARTICIPATE_BUTTON, "participate_button.png", 80, 80);
-		putResizedImage(WAITING_ROOM_UPPER_BAR, "upper_bar.png", 0.3f);
-		putResizedImage(WAITING_ROOM_LOWER_BAR, "lower_bar.png", 0.3f);
+		putResizedImage(WAITING_ROOM_PLAYER_LIST_UPPER_BAR, "upper_bar.png", 0.3f);
+		putResizedImage(WAITING_ROOM_PLAYER_LIST_LOWER_BAR, "lower_bar.png", 0.3f);
+		putResizedImage(WAITING_ROOM_CHAT_UPPER_BAR, "upper_bar.png", 0.3f);
+		putResizedImage(WAITING_ROOM_CHAT_LOWER_BAR, "lower_bar.png", 0.3f);
+		putImage(WAITING_ROOM_CHAT_MIDDLE_BAR, "side_bar.png", 90);
 	}
 	
 	public static String getImagePath(String filename) {

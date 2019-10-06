@@ -38,6 +38,8 @@ public class SelectMultiplayModePanel extends JPanel{
 		Functions.smoothRendering(g);
 		Global.drawTick++;
 		
+		f.setStartTick();
+		
 		GradientPaint gp = new GradientPaint(0, 0, new Color(0,98,255), 0, getSize().height, new Color(0, 69, 181), true);
 		Paint original = g.getPaint();
 		g.setPaint(gp);
@@ -65,22 +67,24 @@ public class SelectMultiplayModePanel extends JPanel{
 		f.drawFancyString(g, areaText, 170, 410, 30f, new Color(200, 200, 200));
 		//f.drawFancyString(g, curMap.getMapName(), getSize().width/2 - f.getFontWidth(g, curMap.getMapName(), 60f)/2, 55, 65f, Color.WHITE);
 		
-		f.drawFuckingFancyString(g, "Join/Create Room", 150, 20, 60f, Color.ORANGE);
+		f.drawFancyString(g, "Join/Create Room", 150, 20, 60f, Color.ORANGE);
+
+		f.drawFancyString(g, "IP address (Participants Only)", 150, 120, 30f, Color.ORANGE);
+		f.drawFancyString(g, "Password", 150, 360, 30f, Color.ORANGE);
+		f.drawFancyString(g, "Nickname", 150, 240, 30f, Color.GREEN);
 		
-		f.drawFuckingFancyString(g, "IP address (Participants Only)", 150, 120, 30f, Color.ORANGE);
-		f.drawFuckingFancyString(g, "Password", 150, 360, 30f, Color.ORANGE);
-		f.drawFuckingFancyString(g, "Nickname", 150, 240, 30f, Color.GREEN);
-		
-		f.drawFuckingFancyString(g, "Join Server", 1000, 195, 30f);
-		f.drawFuckingFancyString(g, "Create Server", 1000, 325, 30f);
+		f.drawFancyString(g, "Join Server", 1000, 195, 30f);
+		f.drawFancyString(g, "Create Server", 1000, 325, 30f);
 		
 		
-		f.drawFuckingFancyString(g, errorMsg.getStateMsg(), getSize().width/2 - errorMsg.getStringWidth(g, 30f)/2, 550, 30f, Color.RED);
+		f.drawFancyString(g, errorMsg.getStateMsg(), getSize().width/2 - errorMsg.getStringWidth(g, 30f)/2, 550, 30f, Color.RED);
 		
 		
 		goBackBtn.draw(g);
 		createBtn.draw(g);
 		participateBtn.draw(g);
+		
+		f.setEndTick();
 	}
 	
 	public SelectMultiplayModePanel(JFrame frame) {
@@ -103,9 +107,9 @@ public class SelectMultiplayModePanel extends JPanel{
 			
 		});
 		
-		ipTextArea = new TriggeredTextArea(new Rectangle(150, 160, 650, 50), 15);
-		nicknameTextArea = new TriggeredTextArea(new Rectangle(150, 280, 650, 50),12);
-		pwTextArea = new TriggeredTextArea(new Rectangle(150, 400, 650, 50), 20);
+		ipTextArea = new TriggeredTextArea(new Rectangle(150, 160, 650, 50), 15, false);
+		nicknameTextArea = new TriggeredTextArea(new Rectangle(150, 280, 650, 50),12, false);
+		pwTextArea = new TriggeredTextArea(new Rectangle(150, 400, 650, 50), 20, false);
 		this.add(ipTextArea);
 		this.add(pwTextArea);
 		this.add(nicknameTextArea);

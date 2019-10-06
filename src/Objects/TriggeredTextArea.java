@@ -22,7 +22,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class TriggeredTextArea extends JTextArea{
-	public TriggeredTextArea(Rectangle rect, int limit) {
+	public TriggeredTextArea(Rectangle rect, int limit, boolean enterable) {
 		DefaultStyledDocument doc = new DefaultStyledDocument();
 		doc.setDocumentFilter(new DocumentSizeFilter(limit));
 		this.setDocument(doc);
@@ -35,7 +35,10 @@ public class TriggeredTextArea extends JTextArea{
 		setForeground(new Color(0,0,0,0));
 		this.setFont(FontManager.getFont(0f));
 		DefaultCaret caret = (DefaultCaret)this.getCaret();
-		disableKeys(getInputMap(), new String[]{"ENTER", "LEFT", "RIGHT", "UP", "DOWN"});
+		if(enterable)
+			disableKeys(getInputMap(), new String[]{"ENTER", "LEFT", "RIGHT", "UP", "DOWN"});
+		else
+			disableKeys(getInputMap(), new String[]{"ENTER", "LEFT", "RIGHT", "UP", "DOWN"});
 		this.addMouseListener(new MouseListener() {
 
 			@Override

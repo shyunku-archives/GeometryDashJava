@@ -24,4 +24,8 @@ public class VirtualScroller {
 	public int getCoordinate(double offset) {
 		return (int)(yScroll*offset);
 	}
+	
+	public boolean isInTheEnd() {
+		return this.yScroll == maxY;
+	}
 }

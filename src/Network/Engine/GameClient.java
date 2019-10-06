@@ -62,14 +62,19 @@ public class GameClient {
 						while(true) {
 							response = reader.readLine();
 							String pretty = JsonDataGenerator.toPrettyFormat(response);
-							f.print("[Client <- Server] Message Received :\n"+pretty);
-							
 							int tag = jgen.getTag(response);
+							
+							if(tag!= NetworkManager.WAITING_ROOM_INFO_LOAD)
+								f.print("[Client <- Server] Message Received :\n"+pretty);
+							
 							JsonObject body = new JsonParser().parse(response).getAsJsonObject().get("body").getAsJsonObject();
 							
 							switch(tag) {
-							case NetworkManager.PARTICIPATE_REFUSE:
-								//refuse 시
+							case NetworkManager.PARTICIPATE_REFUSE_WRONG_PASSWORD:
+								//비번 틀림
+								break;
+							case NetworkManager.PARTICIPATE_REFUSE_ROOM_FULL:
+								//방 꽉참
 								break;
 							case NetworkManager.PARTICIPATE_ACCPETED:
 								break;

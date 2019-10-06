@@ -76,7 +76,7 @@ public class PanelManager {
 				while(true) {
 					frame.repaint();
 					try {
-						Thread.sleep(1000/144);
+						Thread.sleep(1);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
