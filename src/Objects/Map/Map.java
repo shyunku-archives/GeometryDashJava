@@ -5,6 +5,7 @@ import java.io.File;
 import Core.Functions;
 
 public class Map{
+	public static final int DEFAULT_GRID_SIZE = 50;
 	private String mapName;
 	private long createTime;
 	private long recentUpdateTime;

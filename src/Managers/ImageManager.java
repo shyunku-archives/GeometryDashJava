@@ -1,6 +1,8 @@
 package Managers;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +14,10 @@ import Core.Functions;
 
 public class ImageManager {
 	public static final int NULL = -9999;
+	
+	public static final int CATEGORY_SPIKE = 500;
+	public static final int CATEGORY_BLOCK = 501;
+	
 	public static final int MAIN_LOGO = 2000;
 	public static final int PLAY_OFFLINE_LEVELS_BUTTON = 2001;
 	public static final int PLAY_OTHERS_BUTTON = 2002;
@@ -37,8 +43,16 @@ public class ImageManager {
 	public static final int EDIT_MY_LEVEL_BUTTON = 2022;
 	public static final int TEST_MY_LEVEL_BUTTON = 2023;
 	public static final int BGM_SELECT_BUTTON = 2024;
+	public static final int EDIT_UPPER_BG_TILE = 2025;
+	public static final int EDIT_LOWER_BG_TILE = 2026;
+	public static final int EDIT_ZOOM_IN_BUTTON = 2027;
+	public static final int EDIT_ZOOM_OUT_BUTTON = 2028;
+	public static final int PARTICIPATE_MULTIPLAY_BUTTON = 2029;
+	public static final int SERVER_PARTICIPATE_BUTTON = 2030;
+	public static final int SERVER_CREATE_BUTTON = 2031;
 	
 	public HashMap<Integer, BufferedImage> imageBundle = new HashMap<>();
+	public HashMap<String, BufferedImage> gameObjectBundle = new HashMap<>();
 	
 	public ImageManager() {
 		putImage(MAIN_LOGO, "logo.png");
@@ -65,6 +79,13 @@ public class ImageManager {
 		putResizedImage(EDIT_MY_LEVEL_BUTTON, "edit_button.png", 0.6f);
 		putResizedImage(TEST_MY_LEVEL_BUTTON, "play_button.png", 0.6f);
 		putResizedImage(BGM_SELECT_BUTTON, "folder_image.png", 0.4f);
+		putImage(EDIT_UPPER_BG_TILE, "game_bg_tile.png", 1366, 512);
+		putFlippedImage(EDIT_LOWER_BG_TILE, "game_bg_tile.png", 1366, 512);
+		putImage(EDIT_ZOOM_IN_BUTTON, "zoom_in_icon.png", 60, 60);
+		putImage(EDIT_ZOOM_OUT_BUTTON, "zoom_out_icon.png", 60, 60);
+		putImage(PARTICIPATE_MULTIPLAY_BUTTON, "multiplay_button.png", 160, 160);
+		putImage(SERVER_CREATE_BUTTON, "add_button.png", 80, 80);
+		putImage(SERVER_PARTICIPATE_BUTTON, "participate_button.png", 80, 80);
 	}
 	
 	public static String getImagePath(String filename) {
@@ -88,6 +109,20 @@ public class ImageManager {
 		try {
 			BufferedImage bi = ImageIO.read(new File(getImagePath(name)));
 			bi = Functions.rotateBufferdImage(bi, angle);
+			imageBundle.put(key, bi);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void putFlippedImage(int key, String name, int w, int h) {
+		boolean isfix = w != 0;
+		try {
+			BufferedImage bi = ImageIO.read(new File(getImagePath(name)));
+			if(isfix)
+				bi = Functions.resizeImage(bi, w, h);
+			bi = createFlipped(bi);
 			imageBundle.put(key, bi);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -159,5 +194,31 @@ public class ImageManager {
 		return bi;
 	}
 	
-
+	private static BufferedImage createTransformed(BufferedImage image, AffineTransform at)
+	    {
+	        BufferedImage newImage = new BufferedImage(
+	            image.getWidth(), image.getHeight(),
+	            BufferedImage.TYPE_INT_ARGB);
+	        Graphics2D g = newImage.createGraphics();
+	        g.transform(at);
+	        g.drawImage(image, 0, 0, null);
+	        g.dispose();
+	        return newImage;
+	    }
+	
+	private static BufferedImage createFlipped(BufferedImage image)
+    {
+        AffineTransform at = new AffineTransform();
+        at.concatenate(AffineTransform.getScaleInstance(1, -1));
+        at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
+        return createTransformed(image, at);
+    }
+	
+	public static BufferedImage getGameObjectbyID(String tag, int ID) {
+		String path = "resources\\image\\Game\\"+tag+"\\"+ID+".png";
+		try {
+			return ImageIO.read(new File(path));
+		} catch (IOException e) {e.printStackTrace();}
+		return null;
+	}
 }

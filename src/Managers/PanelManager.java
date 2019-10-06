@@ -18,6 +18,7 @@ import Panels.MainPanel;
 import Panels.MapSettingPanel;
 import Panels.OfflineMapSelectPanel;
 import Panels.OtherModeSelectPanel;
+import Panels.SelectMultiplayModePanel;
 
 public class PanelManager {
 	public static JFrame frame = new JFrame("Geometry Dash");
@@ -28,13 +29,13 @@ public class PanelManager {
 	public static MapSettingPanel mapSettingPanel;
 	public static CreatedMapListPanel createdMapListPanel;
 	public static EditMapPanel editMapPanel;
+	public static SelectMultiplayModePanel selectMultiplayModePanel;
 	
 	public static void InitialExecute() {
 		Functions.setInitialFrameBounds(frame);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		frame.setFocusable(true);
-		frame.setLocation(-1500, 200);
+		frame.setLocation(-3500, 150);
 		
 		frame.addKeyListener(new KeyListener() {
 
@@ -82,7 +83,7 @@ public class PanelManager {
 			}
 		}).start();
 	
-		//GoToCreatedMapListPanel();
+		GoToSelectMultiplayModePanel();
 	}
 	
 	public static void GoToMainPanel() {
@@ -131,5 +132,13 @@ public class PanelManager {
 		
 		frame.add(logPanel);
 		frame.add(editMapPanel);
+	}
+	
+	public static void GoToSelectMultiplayModePanel() {
+		frame.getContentPane().removeAll();
+		selectMultiplayModePanel = new SelectMultiplayModePanel(frame);
+		
+		frame.add(logPanel);
+		frame.add(selectMultiplayModePanel);
 	}
 }

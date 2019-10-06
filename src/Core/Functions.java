@@ -98,27 +98,27 @@ public class Functions {
 		return new Color((int)(f*c.getRed()), (int)(f*c.getGreen()), (int)(f*c.getBlue()), c.getAlpha());
 	}
 	
-	public static void drawFancyString(Graphics2D g, String str, int x, int y, float size, boolean isGradient) {
-		Font f = FontManager.getFont(size);
-		TextLayout tl = new TextLayout(str, f, g.getFontRenderContext());
-		AffineTransform transform = g.getTransform();
-		Shape outline = tl.getOutline(null);
-		Rectangle bound = outline.getBounds();
-		AffineTransform orig = g.getTransform();
-		transform.translate(x, y);
-
-		g.setTransform(transform);
-		g.setColor(Color.WHITE);
-		GradientPaint gp = new GradientPaint(x, y, new Color(255, 170, 17), x, (int)(y-size), Color.WHITE, true);         
-		if(isGradient)
-			g.setPaint(gp);
-		g.fill(outline);
-		g.setStroke(new BasicStroke(size/25));
-		g.setColor(Color.BLACK);
-		g.draw(outline);
-		
-		g.setTransform(orig);
-	}
+//	public static void drawFancyString(Graphics2D g, String str, int x, int y, float size, boolean isGradient) {
+//		Font f = FontManager.getFont(size);
+//		TextLayout tl = new TextLayout(str, f, g.getFontRenderContext());
+//		AffineTransform transform = g.getTransform();
+//		Shape outline = tl.getOutline(null);
+//		Rectangle bound = outline.getBounds();
+//		AffineTransform orig = g.getTransform();
+//		transform.translate(x, y);
+//
+//		g.setTransform(transform);
+//		g.setColor(Color.WHITE);
+//		GradientPaint gp = new GradientPaint(x, y, new Color(255, 170, 17), x, (int)(y-size), Color.WHITE, true);         
+//		if(isGradient)
+//			g.setPaint(gp);
+//		g.fill(outline);
+//		g.setStroke(new BasicStroke(size/25));
+//		g.setColor(Color.BLACK);
+//		g.draw(outline);
+//		
+//		g.setTransform(orig);
+//	}
 	
 	public static void drawFancyString(Graphics2D g, String str, int x, int y, float size, Color internalColor) {
 		if(str.length()==0)return;
@@ -137,6 +137,66 @@ public class Functions {
 		g.fill(outline);
 		g.setStroke(new BasicStroke(size/25));
 		g.setColor(Color.BLACK);
+		g.draw(outline);
+		
+		g.setTransform(orig);
+	}
+	
+	public static void drawFancyString(Graphics2D g, String str, int x, int y, float size) {
+		if(str.length()==0)return;
+		AffineTransform orig = g.getTransform();
+		Font f = FontManager.getFont(size);
+		TextLayout tl = new TextLayout(str, f, g.getFontRenderContext());
+		AffineTransform transform = new AffineTransform();
+		FontMetrics fm = g.getFontMetrics(f);
+		Shape outline = tl.getOutline(null);
+		Rectangle bound = outline.getBounds();
+		transform = g.getTransform();
+		transform.translate(x, y+fm.getAscent());
+		
+		g.setTransform(transform);
+		g.setColor(Color.WHITE);
+		g.fill(outline);
+		g.setStroke(new BasicStroke(size/25));
+		g.setColor(Color.BLACK);
+		g.draw(outline);
+		
+		g.setTransform(orig);
+	}
+	
+	public static void drawFuckingFancyString(Graphics2D g, String str, int x, int y, float size) {
+		drawRefinedString(g, str, x+1, y+2, size, new Color(80, 80, 80));
+		drawFancyString(g, str, x, y, size);
+	}
+	
+	public static void drawFuckingFancyString(Graphics2D g, String str, int x, int y, float size, Color c) {
+		drawRefinedString(g, str, x+1, y+2, size, new Color(80, 80, 80));
+		drawFancyString(g, str, x, y, size, c);
+	}
+	
+	public static void drawFuckingFancyRightAlignedString(Graphics2D g, String str, int x, int y, float size, Color c) {
+		int newX = x - g.getFontMetrics(FontManager.getFont(size)).stringWidth(str);
+		drawRefinedString(g, str, newX+1, y+2, size, new Color(80, 80, 80));
+		drawFancyString(g, str, newX, y, size, c);
+	}
+	
+	public static void drawRefinedString(Graphics2D g, String str, int x, int y, float size, Color c) {
+		if(str.length()==0)return;
+		AffineTransform orig = g.getTransform();
+		Font f = FontManager.getFont(size);
+		TextLayout tl = new TextLayout(str, f, g.getFontRenderContext());
+		AffineTransform transform = new AffineTransform();
+		FontMetrics fm = g.getFontMetrics(f);
+		Shape outline = tl.getOutline(null);
+		Rectangle bound = outline.getBounds();
+		transform = g.getTransform();
+		transform.translate(x, y+fm.getAscent());
+		
+		g.setTransform(transform);
+		g.setColor(c);
+		g.fill(outline);
+		g.setStroke(new BasicStroke(size/25));
+		g.setColor(c);
 		g.draw(outline);
 		
 		g.setTransform(orig);

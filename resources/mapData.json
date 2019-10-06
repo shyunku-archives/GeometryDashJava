@@ -4,6 +4,10 @@
 	"environment": {
 		"defaultSpeed": 5,
 		"gravity": 2.2,
+		"startPosition": -3,
+			"editMode":{
+			}
+		}
 	},
 	"block":{
 		"default_block": {

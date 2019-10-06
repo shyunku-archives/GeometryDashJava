@@ -14,10 +14,12 @@ import javax.swing.JButton;
 
 import Core.Functions;
 import Core.Constants.Global;
+import Core.Constants.ManagerManager;
 import Managers.ImageManager;
 
 public class TriggeredButton extends JButton{
 	private BufferedImage image = null;
+	TriggeredButtonListener listener = null;
 	
 	public TriggeredButton(Rectangle rect, int flag) {
 		this.setBounds(rect.x,rect.y, rect.width, rect.height);
@@ -42,9 +44,52 @@ public class TriggeredButton extends JButton{
 			}
 			
 		});
+		this.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(listener!=null)
+					listener.onClickListener();
+				ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	}
+	
+	public void setClickListener(TriggeredButtonListener listener) {
+		this.listener = listener;
 	}
 	
 	public void draw(Graphics2D g, int x, int y) {
 		Functions.drawImage(g, image, x, y);
+	}
+	
+	public void draw(Graphics2D g) {
+		Functions.drawImage(g, image, getBounds().x, getBounds().y);
 	}
 }

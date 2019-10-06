@@ -1,6 +1,7 @@
 package Objects;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Rectangle;
 
 import javax.swing.InputMap;
@@ -10,11 +11,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.DefaultStyledDocument;
 
+import Core.Constants.ManagerManager;
 import Engines.DocumentSizeFilter;
 
 import javax.swing.text.*;
 import javax.swing.*;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class TriggeredTextArea extends JTextArea{
 	public TriggeredTextArea(Rectangle rect, int limit) {
@@ -29,11 +33,42 @@ public class TriggeredTextArea extends JTextArea{
 		setBackground(new Color(0,0,0,0));
 		setForeground(new Color(0,0,0,0));
 		disableKeys(getInputMap(), new String[]{"ENTER"});
+		this.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 	
 	private static void disableKeys(InputMap im,String[] keystrokeNames) {              
         for (int i = 0; i < keystrokeNames.length; ++i)
             im.put(KeyStroke.getKeyStroke(keystrokeNames[i]), "none");
-        
     }
 }

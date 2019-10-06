@@ -17,20 +17,29 @@ import Managers.SoundManager;
 
 public class LogPanel extends JPanel{
 	Functions f = new Functions();
+	final float fontsize = 20f;
 	
 	@Override
 	public void paintComponent(Graphics gd) {
-		if(!Global.isLogViewMode)return;
 		super.paintComponent(gd);
 		final Graphics2D g = (Graphics2D) gd;
 		Functions.smoothRendering(g);
 		
-		f.drawFancyString(g, new String("mouse : ("+Global.mouse.x+","+Global.mouse.y+")"), 10, 135, 30f, true);
+		g.setColor(new Color(0,0,0,30));
+		g.fillRect(getSize().width/2 - 90, getSize().height-90, 150, 40);
+		f.drawFancyString(g, Global.version, getSize().width/2 - f.getFontWidth(g, Global.version, 25f)/2, getSize().height-80, 20f);
+		
+		if(!Global.isLogViewMode)return;		
 		double fps = (double)Global.drawTick/((double)(f.getElapsedTime())/1000);
 		String elapsed = String.format("%.3fs",(double)(f.getElapsedTime())/1000);
-		f.drawFancyString(g, new String("tick : "+Global.drawTick), 10, 160, 30f, true);
-		f.drawFancyString(g, new String("fps : "+String.format("%.2f", fps)), 10, 185, 30f, true);
-		f.drawFancyString(g, new String("time : "+elapsed), 10, 210, 30f, true);
+		
+		int rightEnd = 1330, startY = 15, heightGap = 15;
+		f.drawFuckingFancyRightAlignedString(g, new String("mouse : ("+Global.mouse.x+","+Global.mouse.y+")"), rightEnd, startY, fontsize, Color.ORANGE);
+		f.drawFuckingFancyRightAlignedString(g, new String("tick : "+Global.drawTick), rightEnd, startY+heightGap*1, fontsize, Color.ORANGE);
+		f.drawFuckingFancyRightAlignedString(g, new String("fps : "+String.format("%.2f", fps)), rightEnd, startY+heightGap*2, fontsize, Color.ORANGE);
+		f.drawFuckingFancyRightAlignedString(g, new String("time : "+elapsed), rightEnd, startY+heightGap*3, fontsize, Color.ORANGE);
+		
+		f.drawFuckingFancyRightAlignedString(g, "edit pos : "+String.format("(%d, %d)", Global.editModePos.x, Global.editModePos.y), rightEnd, startY+heightGap*5, fontsize, Color.ORANGE);
 	}
 	
 	public LogPanel(JFrame frame) {

@@ -26,6 +26,7 @@ import Core.Constants.Global;
 import Core.Constants.ManagerManager;
 import Managers.ImageManager;
 import Objects.TriggeredButton;
+import Objects.TriggeredButtonListener;
 import Objects.TriggeredTextArea;
 import Objects.VirtualScroller;
 import Objects.Map.Map;
@@ -119,45 +120,20 @@ public class CreatedMapListPanel extends JPanel{
 		});
 		
 		goBackBtn = new TriggeredButton(new Rectangle(20, 15, 71, 80), ImageManager.GO_BACK_GREEN_BUTTON);
-		goBackBtn.addMouseListener(new MouseListener() {
-
+		goBackBtn.setClickListener(new TriggeredButtonListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void onClickListener() {
 				// TODO Auto-generated method stub
 				ManagerManager.pm.GoToOtherModeSelectPanel();
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 		});
 		this.add(goBackBtn);
 		
-		createMapBtn = new TriggeredButton(new Rectangle(1000, 35, 160, 160), ImageManager.CREATE_NEW_LEVEL_BUTTON);
-		createMapBtn.addMouseListener(new MouseListener() {
-
+		createMapBtn = new TriggeredButton(new Rectangle(1000, 35, 60, 60), ImageManager.CREATE_NEW_LEVEL_BUTTON);
+		createMapBtn.setClickListener(new TriggeredButtonListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+			public void onClickListener() {
 				String name = newLevelNameTextArea.getText();
 				if(name.length()==0) {
 					WarningStr = "please enter map name";
@@ -178,28 +154,6 @@ public class CreatedMapListPanel extends JPanel{
 					e1.printStackTrace();
 					WarningStr = "something is going wrong...";
 				}
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 		});

@@ -5,9 +5,11 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +22,7 @@ import Objects.TriggeredButton;
 
 public class OtherModeSelectPanel extends JPanel{
 	Functions f = new Functions();
-	TriggeredButton createMapButton;
+	TriggeredButton createMapButton, multiplayBtn;
 	TriggeredButton goBackBtn;
 	
 	@Override
@@ -38,12 +40,66 @@ public class OtherModeSelectPanel extends JPanel{
 		this.createMapButton.draw(g, 350, 60);
 		
 		goBackBtn.draw(g, 20, 15);
+		multiplayBtn.draw(g);
+		
+//		f.drawRefinedString(g, "Multiplay", 577, 182, 25f, new Color(80,80,80));
+//		f.drawFancyString(g, "Multiplay", 575, 180, 25f);
+		f.drawFuckingFancyString(g, "Multiplay", 575, 180, 25f);
 	}
 	
 	public OtherModeSelectPanel(JFrame frame) {
 		this.setSize(frame.getSize());
 		this.setVisible(true);
 		this.setLayout(null);
+		addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Global.mouse = new Point(e.getX(), e.getY());
+			}
+			
+		});
+		
+		multiplayBtn = new TriggeredButton(new Rectangle(560, 60, 180, 180), ImageManager.PARTICIPATE_MULTIPLAY_BUTTON);
+		multiplayBtn.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				ManagerManager.pm.GoToSelectMultiplayModePanel();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		this.add(multiplayBtn);
 		
 		goBackBtn = new TriggeredButton(new Rectangle(20, 15, 80, 80), ImageManager.GO_BACK_PINK_BUTTON);
 		goBackBtn.addMouseListener(new MouseListener() {
