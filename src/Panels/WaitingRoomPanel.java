@@ -22,9 +22,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Functions;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
+import Core.Global;
 import Managers.ImageManager;
+import Managers.ManagerManager;
 import Network.Engine.GameClient;
 import Network.Engine.GameServer;
 import Network.Engine.JsonDataGenerator;

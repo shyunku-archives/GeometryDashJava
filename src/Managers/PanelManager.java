@@ -9,7 +9,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 
 import Core.Functions;
-import Core.Constants.Global;
+import Core.Global;
 import Objects.Map.Map;
 import Panels.CreatedMapListPanel;
 import Panels.EditMapPanel;

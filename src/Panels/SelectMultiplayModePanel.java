@@ -15,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Functions;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
+import Core.Global;
 import Managers.ErrorManager;
 import Managers.ImageManager;
+import Managers.ManagerManager;
 import Objects.ErrorMessager;
 import Objects.TriggeredButton;
 import Objects.TriggeredButtonListener;

@@ -8,11 +8,10 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import Core.Constants.Dimensions;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
 import Managers.ErrorManager;
 import Managers.FontManager;
 import Managers.ImageManager;
+import Managers.ManagerManager;
 import Managers.PanelManager;
 import Managers.SoundManager;
 import Network.Engine.NetworkManager;

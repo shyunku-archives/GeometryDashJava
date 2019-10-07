@@ -1,9 +1,5 @@
-package Core.Constants;
+package Managers;
 
-import Managers.ErrorManager;
-import Managers.ImageManager;
-import Managers.PanelManager;
-import Managers.SoundManager;
 import Network.Engine.NetworkManager;
 
 public class ManagerManager {

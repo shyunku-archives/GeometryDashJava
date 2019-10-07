@@ -13,9 +13,9 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 
 import Core.Functions;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
+import Core.Global;
 import Managers.ImageManager;
+import Managers.ManagerManager;
 
 public class TriggeredButton extends JButton{
 	private BufferedImage image = null;

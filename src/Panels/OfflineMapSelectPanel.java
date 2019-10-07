@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Functions;
-import Core.Constants.Global;
+import Core.Global;
 
 public class OfflineMapSelectPanel extends JPanel{
 	Functions f = new Functions();

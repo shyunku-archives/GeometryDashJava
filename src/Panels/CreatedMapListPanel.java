@@ -21,10 +21,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Functions;
+import Core.Global;
 import Core.Constants.Area;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
 import Managers.ImageManager;
+import Managers.ManagerManager;
 import Objects.TriggeredButton;
 import Objects.TriggeredButtonListener;
 import Objects.TriggeredTextArea;

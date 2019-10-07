@@ -19,11 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Functions;
+import Core.Global;
 import Core.Constants.Dimensions;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
 import Managers.FontManager;
 import Managers.ImageManager;
+import Managers.ManagerManager;
 import Managers.SoundManager;
 import Objects.TriggeredButton;
 

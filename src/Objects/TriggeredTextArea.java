@@ -11,9 +11,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.DefaultStyledDocument;
 
-import Core.Constants.ManagerManager;
 import Engines.DocumentSizeFilter;
 import Managers.FontManager;
+import Managers.ManagerManager;
 
 import javax.swing.text.*;
 import javax.swing.*;

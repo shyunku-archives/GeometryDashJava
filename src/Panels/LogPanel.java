@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Functions;
-import Core.Constants.Global;
+import Core.Global;
 import Managers.SoundManager;
 import Utility.Interval;
 
@@ -46,7 +46,7 @@ public class LogPanel extends JPanel{
 		Color c = new Color(rate, 255-rate, 0);
 		f.drawFancyRightAlignedString(g, new String("timePerTick : "+tickInterval.toFormat(((double)f.getTickTime())/1000000)+"ms"), rightEnd, startY+heightGap*3, fontsize, c);
 		
-		f.drawFancyRightAlignedString(g, "edit pos : "+String.format("(%d, %d)", Global.editModePos.x, Global.editModePos.y), rightEnd, startY+heightGap*5, fontsize, Color.ORANGE);
+		f.drawFancyRightAlignedString(g, "edit pos : "+Global.editModePos.getPosByString(), rightEnd, startY+heightGap*5, fontsize, Color.ORANGE);
 	}
 	
 	public LogPanel(JFrame frame) {

@@ -25,10 +25,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import Core.Functions;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
+import Core.Global;
 import Managers.FontManager;
 import Managers.ImageManager;
+import Managers.ManagerManager;
 import Objects.TriggeredButton;
 import Objects.Map.Map;
 

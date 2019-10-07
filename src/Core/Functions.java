@@ -23,10 +23,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Constants.Dimensions;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
 import Managers.FontManager;
 import Managers.ImageManager;
+import Managers.ManagerManager;
 import Objects.SoundTrack;
 
 public class Functions<Temp> {

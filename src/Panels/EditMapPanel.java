@@ -16,9 +16,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Functions;
-import Core.Constants.Global;
-import Core.Constants.ManagerManager;
+import Core.Global;
 import Managers.ImageManager;
+import Managers.ManagerManager;
+import Objects.DoubleCoordinate;
 import Objects.TriggeredButton;
 import Objects.Map.Map;
 import Objects.Map.ZoomEngine;
@@ -31,6 +32,7 @@ public class EditMapPanel extends JPanel{
 	Point curp = new Point(0, 0);
 	TriggeredButton zoomInBtn, zoomOutBtn;
 	
+	
 	@Override
 	public void paintComponent(Graphics gd) {
 		super.paintComponent(gd);
@@ -38,7 +40,8 @@ public class EditMapPanel extends JPanel{
 		Functions.smoothRendering(g);
 		Global.drawTick++;
 		
-		Global.editModePos = curp;
+		Global.editModePos = new DoubleCoordinate(curp.x/((Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate())),
+				curp.y/((Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate())));
 		
 		Functions.drawImage(g, ImageManager.EDIT_UPPER_BG_TILE, 0, 0);
 		Functions.drawImage(g, ImageManager.EDIT_LOWER_BG_TILE, 0, 512);
@@ -81,6 +84,10 @@ public class EditMapPanel extends JPanel{
 		g.setColor(Color.RED);
 		g.fillOval(200-3, 500-3, 6, 6);
 		
+		g.setColor(Color.BLACK);
+		g.fillOval(getSize().width/2-3, 300-3, 6, 6);
+		g.drawString(this.getGridCoordinate(getSize().width/2, 300).getPosByString(), (int)(getSize().width/2), 300-6);
+		
 		//EDIT PANEL
 		g.setColor(new Color(0,0,0,200));
 		g.fillRect(0, 600, getSize().width, 300);
@@ -88,6 +95,11 @@ public class EditMapPanel extends JPanel{
 		zoomInBtn.draw(g);
 		zoomOutBtn.draw(g);
 		f.drawFancyString(g, "x"+zoomG.getCurZoomRate(), 30, 450, 25f, Color.ORANGE);
+	}
+	
+	private DoubleCoordinate getGridCoordinate(int x, int y) {
+		double rate = Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate();
+		return new DoubleCoordinate((x+curp.x-200)/rate,(500-y+curp.y)/rate);
 	}
 	
 	public EditMapPanel(JFrame frame, Map map) {
