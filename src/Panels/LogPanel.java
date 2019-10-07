@@ -46,7 +46,8 @@ public class LogPanel extends JPanel{
 		Color c = new Color(rate, 255-rate, 0);
 		f.drawFancyRightAlignedString(g, new String("timePerTick : "+tickInterval.toFormat(((double)f.getTickTime())/1000000)+"ms"), rightEnd, startY+heightGap*3, fontsize, c);
 		
-		f.drawFancyRightAlignedString(g, "edit pos : "+Global.editModePos.getPosByString(), rightEnd, startY+heightGap*5, fontsize, Color.ORANGE);
+		f.drawFancyRightAlignedString(g, "editor mouse : "+Global.editorMouseCoordinate.getPosByString(), rightEnd, startY+heightGap*5, fontsize, Color.ORANGE);
+		f.drawFancyRightAlignedString(g, "editor origin : "+String.format("(%d,%d)",Global.originCoordinate.x, Global.originCoordinate.y), rightEnd, startY+heightGap*6, fontsize, Color.ORANGE);
 	}
 	
 	public LogPanel(JFrame frame) {

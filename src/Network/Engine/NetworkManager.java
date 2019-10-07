@@ -18,6 +18,7 @@ public class NetworkManager {
 	public static final int WAITING_ROOM_INFO_LOAD = 2004;
 	public static final int NORMAL_CHAT_SEND = 2005;
 	public static final int SYSTEMIC_CHAT_SEND = 2006;
+	public static final int PARTICIPANT_LEFT = 2007;
 	private HashMap<Integer, String> messageBundle = new HashMap<>();
 	
 	public NetworkManager() {

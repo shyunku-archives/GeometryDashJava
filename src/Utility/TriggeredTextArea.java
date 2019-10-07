@@ -1,4 +1,4 @@
-package Objects;
+package Utility;
 
 import java.awt.Color;
 import java.awt.Cursor;

@@ -29,8 +29,8 @@ import Core.Global;
 import Managers.FontManager;
 import Managers.ImageManager;
 import Managers.ManagerManager;
-import Objects.TriggeredButton;
 import Objects.Map.Map;
+import Utility.TriggeredButton;
 
 public class MapSettingPanel extends JPanel{
 	Functions f = new Functions();

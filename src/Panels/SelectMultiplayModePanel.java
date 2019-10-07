@@ -20,9 +20,9 @@ import Managers.ErrorManager;
 import Managers.ImageManager;
 import Managers.ManagerManager;
 import Objects.ErrorMessager;
-import Objects.TriggeredButton;
-import Objects.TriggeredButtonListener;
-import Objects.TriggeredTextArea;
+import Utility.TriggeredButton;
+import Utility.TriggeredButtonListener;
+import Utility.TriggeredTextArea;
 
 public class SelectMultiplayModePanel extends JPanel{
 	Functions f = new Functions();

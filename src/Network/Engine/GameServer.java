@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,6 +49,7 @@ public class GameServer {
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
+								String sender = null;
 								while(true) {
 									try {
 										BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -58,6 +60,8 @@ public class GameServer {
 										
 										int tag = jgen.getTag(request);
 										JsonObject body = new JsonParser().parse(request).getAsJsonObject().get("body").getAsJsonObject();
+										JsonObject head = new JsonParser().parse(request).getAsJsonObject().get("head").getAsJsonObject();
+										sender = head.getAsJsonObject().get("sender").getAsString();
 										
 										switch(tag) {
 										case NetworkManager.PARTICIPATING_SERVER:
@@ -66,14 +70,14 @@ public class GameServer {
 												break;
 											}
 											String acceptedPW = body.get("password").getAsString();
-											String sender = body.get("player").getAsJsonObject().get("playerNickname").getAsString();
+											
 											if(!roomInfo.getRoomPW().equals(acceptedPW)) {
 												refuse(NetworkManager.PARTICIPATE_REFUSE_WRONG_PASSWORD, socket);
 												break;
 											}
 											Player newPlayer = new Gson().fromJson(body.get("player").getAsJsonObject(), Player.class);
 											roomInfo.addPlayer(newPlayer);
-											roomInfo.addChat(new Chat("SYSTEM", sender + " joinned!", true));
+											roomInfo.addChat(new Chat("", sender + " joinned.", true));
 											addWriter(socket, sender);
 											broadcast(sender, jgen.bindAll(NetworkManager.PARTICIPATE_ACCPETED, roomInfo.getRoomMasterName(), jgen.getEmptyData()));
 											break;
@@ -83,7 +87,17 @@ public class GameServer {
 											break;
 										}
 										broadcast(jgen.bindAll(NetworkManager.WAITING_ROOM_INFO_LOAD, roomInfo.getRoomMasterName(), roomInfo.getJson()));
-									} catch (IOException e) {
+									} catch (SocketException e) {
+										//클라이언트 하나 나감
+										f.cprint(sender+" has left");
+										roomInfo.deletePlayer(sender);
+										roomInfo.addChat(new Chat("", sender + " left.", true));
+										
+										removeWriter(sender);
+										
+										broadcast(jgen.bindAll(NetworkManager.WAITING_ROOM_INFO_LOAD, roomInfo.getRoomMasterName(), roomInfo.getJson()));
+										break;
+									}catch (IOException e) {
 										e.printStackTrace();
 									}
 								}

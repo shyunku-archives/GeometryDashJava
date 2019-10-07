@@ -20,17 +20,20 @@ import Core.Global;
 import Managers.ImageManager;
 import Managers.ManagerManager;
 import Objects.DoubleCoordinate;
-import Objects.TriggeredButton;
 import Objects.Map.Map;
 import Objects.Map.ZoomEngine;
+import Utility.TriggeredButton;
+import Utility.TriggeredRadioButtonGroup;
 
 public class EditMapPanel extends JPanel{
 	Functions f = new Functions();
 	Map curMap = null;
 	double[] zoomStage = {2, 1.66, 1.33, 1, 0.9, 0.75, 0.66, 0.5, 0.33};
 	ZoomEngine zoomG = new ZoomEngine(zoomStage, 3);
-	Point curp = new Point(0, 0);
 	TriggeredButton zoomInBtn, zoomOutBtn;
+	Point origin = new Point(200,500);			//원점의 화면상 실제 좌표
+	
+	TriggeredRadioButtonGroup modeGroup = new TriggeredRadioButtonGroup();
 	
 	
 	@Override
@@ -40,8 +43,8 @@ public class EditMapPanel extends JPanel{
 		Functions.smoothRendering(g);
 		Global.drawTick++;
 		
-		Global.editModePos = new DoubleCoordinate(curp.x/((Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate())),
-				curp.y/((Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate())));
+		Global.editorMouseCoordinate = getEditorCoordinate(Global.mouse);
+		Global.originCoordinate = origin;
 		
 		Functions.drawImage(g, ImageManager.EDIT_UPPER_BG_TILE, 0, 0);
 		Functions.drawImage(g, ImageManager.EDIT_LOWER_BG_TILE, 0, 512);
@@ -58,35 +61,32 @@ public class EditMapPanel extends JPanel{
 		g.setColor(Color.BLACK);
 		//y-axis parallel
 		for(int i=0;;i++) {
-			int cameraX = 200-curp.x+(i+1)*(int)(Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate());
-			if(cameraX<0)continue;
-			if(cameraX>1400)break;
-			g.drawLine(cameraX, 0, cameraX, 1500);
+			int axisCoord = origin.x+(i+1)*(int)(Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate());
+			if(axisCoord<0)continue;
+			if(axisCoord>1400)break;
+			g.drawLine(axisCoord, 0, axisCoord, 1500);
 		}
 		//x-axis parallel
 		for(int i=0;;i++) {
-			int cameraY = 500+curp.y-(i-15)*(int)(Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate());
-			if(cameraY<0)break;
-			if(cameraY>800)continue;
-			if(curp.x<200)
-				g.drawLine(200-curp.x, cameraY, 1500, cameraY);
+			int axisCoord = origin.y-(i-15)*(int)(Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate());
+			if(axisCoord<0)break;		//화면 위로 넘어가면 break
+			if(axisCoord>800)continue;	//화면 아래 것들은 continue
+			if(origin.x>0)
+				g.drawLine(origin.x, axisCoord, 1500, axisCoord);
 			else
-				g.drawLine(0, cameraY, 1500, cameraY);
+				g.drawLine(0, axisCoord, 1500, axisCoord);
 		}
 		
 		g.setColor(Color.WHITE);
 		g.setStroke(new BasicStroke(2));
-		g.drawLine(0, 500+curp.y, (int)(getSize().width*1.2), 500+curp.y);
+		g.drawLine(0, origin.y, (int)(getSize().width*1.2), origin.y);
 		g.setColor(Color.GREEN);
-		g.drawLine(200-curp.x, 0, 200-curp.x, getSize().height);
+		g.drawLine(origin.x, 0, origin.x, getSize().height);
 		
-		//EDIT POS
-		g.setColor(Color.RED);
-		g.fillOval(200-3, 500-3, 6, 6);
-		
-		g.setColor(Color.BLACK);
-		g.fillOval(getSize().width/2-3, 300-3, 6, 6);
-		g.drawString(this.getGridCoordinate(getSize().width/2, 300).getPosByString(), (int)(getSize().width/2), 300-6);
+//		g.setColor(Color.PINK);
+//		Point cent = new Point(getSize().width/2, 300);
+//		g.fillOval(cent.x-3, cent.y-3, 6,6);
+//		g.drawString(getEditorCoordinate(cent).getPosByString(), cent.x, cent.y-7);
 		
 		//EDIT PANEL
 		g.setColor(new Color(0,0,0,200));
@@ -95,11 +95,27 @@ public class EditMapPanel extends JPanel{
 		zoomInBtn.draw(g);
 		zoomOutBtn.draw(g);
 		f.drawFancyString(g, "x"+zoomG.getCurZoomRate(), 30, 450, 25f, Color.ORANGE);
+		
+		modeGroup.drawAll(g);
 	}
 	
-	private DoubleCoordinate getGridCoordinate(int x, int y) {
-		double rate = Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate();
-		return new DoubleCoordinate((x+curp.x-200)/rate,(500-y+curp.y)/rate);
+	private void forceCameraMoveWhenZoom(double rate) {
+		int dx = getSize().width/2 - origin.x;
+		int dy = origin.y - 300;
+		
+		double newr = rate-1;
+		f.cprint("new rate : "+newr); 
+		
+		origin.x -= newr*dx;
+		origin.y += newr*dy;
+	}
+	
+	private DoubleCoordinate getEditorCoordinate(Point real) {
+		double dx = real.x - origin.x;
+		double dy = -(real.y - origin.y);
+		dx/=Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate();
+		dy/=Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate();
+		return new DoubleCoordinate(dx, dy);
 	}
 	
 	public EditMapPanel(JFrame frame, Map map) {
@@ -110,12 +126,21 @@ public class EditMapPanel extends JPanel{
 		curMap = map;
 		//load
 		
+		modeGroup.addButtons(TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON,
+				ImageManager.FOCUSED_BUILD_BUTTON, ImageManager.UNFOCUSED_BUILD_BUTTON, 15, 610);
+		modeGroup.addButtons(TriggeredRadioButtonGroup.EDITOR_EDIT_BUTTON,
+				ImageManager.FOCUSED_EDIT_BUTTON, ImageManager.UNFOCUSED_EDIT_BUTTON, 15, 645);
+		modeGroup.addButtons(TriggeredRadioButtonGroup.EDITOR_DELETE_BUTTON,
+				ImageManager.FOCUSED_DELETE_BUTTON, ImageManager.UNFOCUSED_DELETE_BUTTON, 15, 680);
+		
+		modeGroup.focus(TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON);
+		
 		zoomInBtn = new TriggeredButton(new Rectangle(30, 300, 60, 60), ImageManager.EDIT_ZOOM_IN_BUTTON);
 		zoomInBtn.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				zoomG.zoomIn();
+				forceCameraMoveWhenZoom(zoomG.zoomIn());
 			}
 
 			@Override
@@ -150,7 +175,7 @@ public class EditMapPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				zoomG.zoomOut();
+				forceCameraMoveWhenZoom(zoomG.zoomOut());
 			}
 
 			@Override
@@ -187,10 +212,11 @@ public class EditMapPanel extends JPanel{
 				// TODO Auto-generated method stub
 				int dx = e.getX() - Global.mouse.x;
 				int dy = e.getY() - Global.mouse.y;
-				Point p = curp;
-				curp = new Point(p.x - dx, p.y + dy);
-				if(curp.x < -200)curp.x=-200;
-				if(curp.y < -150)curp.y=-150;
+				origin = new Point(origin.x + dx, origin.y + dy);
+				
+				if(origin.x>200)origin.x=200;
+				if(origin.y<500)origin.y=500;
+				
 				Global.mouse = new Point(e.getX(), e.getY());
 			}
 

@@ -11,16 +11,20 @@ public class ZoomEngine {
 			throw new ArrayIndexOutOfBoundsException();
 	}
 	
-	public void zoomIn() {
+	public double zoomIn() {
+		int original = zoomIndex;
 		zoomIndex--;
 		if(zoomIndex<0)
 			zoomIndex = 0;
+		return zoomStage[zoomIndex]/zoomStage[original];
 	}
 	
-	public void zoomOut() {
+	public double zoomOut() {
+		int original = zoomIndex;
 		zoomIndex++;
 		if(zoomIndex>zoomStage.length-1)
 			zoomIndex = zoomStage.length-1;
+		return zoomStage[zoomIndex]/zoomStage[original];
 	}
 	
 	public double getCurZoomRate() {

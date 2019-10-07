@@ -1,4 +1,4 @@
-package Objects;
+package Utility;
 
 public class VirtualScroller {
 	private int yScroll;

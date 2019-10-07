@@ -35,5 +35,9 @@ public class Chat extends JsonFormattable{
 		this.isSystemic = isSystemic;
 	}
 	
+	public String toMessage() {
+		if(isSystemic) return content;
+		return sender + ": "+content;
+	}
 	
 }

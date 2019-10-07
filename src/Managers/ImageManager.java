@@ -55,6 +55,12 @@ public class ImageManager {
 	public static final int WAITING_ROOM_CHAT_UPPER_BAR = 2034;
 	public static final int WAITING_ROOM_CHAT_LOWER_BAR = 2035;
 	public static final int WAITING_ROOM_CHAT_MIDDLE_BAR = 2036;
+	public static final int FOCUSED_BUILD_BUTTON = 2037;
+	public static final int UNFOCUSED_BUILD_BUTTON = 2038;
+	public static final int FOCUSED_EDIT_BUTTON = 2039;
+	public static final int UNFOCUSED_EDIT_BUTTON = 2040;
+	public static final int FOCUSED_DELETE_BUTTON = 2041;
+	public static final int UNFOCUSED_DELETE_BUTTON = 2042;
 	
 	public HashMap<Integer, BufferedImage> imageBundle = new HashMap<>();
 	public HashMap<String, BufferedImage> gameObjectBundle = new HashMap<>();
@@ -96,6 +102,12 @@ public class ImageManager {
 		putResizedImage(WAITING_ROOM_CHAT_UPPER_BAR, "upper_bar.png", 0.3f);
 		putResizedImage(WAITING_ROOM_CHAT_LOWER_BAR, "lower_bar.png", 0.3f);
 		putImage(WAITING_ROOM_CHAT_MIDDLE_BAR, "side_bar.png", 90);
+		putResizedImage(FOCUSED_BUILD_BUTTON, "focused_build_button.png", 0.4f);
+		putResizedImage(UNFOCUSED_BUILD_BUTTON, "unfocused_build_button.png", 0.4f);
+		putResizedImage(FOCUSED_EDIT_BUTTON, "focused_edit_button.png", 0.4f);
+		putResizedImage(UNFOCUSED_EDIT_BUTTON, "unfocused_edit_button.png", 0.4f);
+		putResizedImage(FOCUSED_DELETE_BUTTON, "focused_delete_button.png", 0.4f);
+		putResizedImage(UNFOCUSED_DELETE_BUTTON, "unfocused_delete_button.png", 0.4f);
 	}
 	
 	public static String getImagePath(String filename) {

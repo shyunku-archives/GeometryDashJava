@@ -18,7 +18,7 @@ import Core.Functions;
 import Core.Global;
 import Managers.ImageManager;
 import Managers.ManagerManager;
-import Objects.TriggeredButton;
+import Utility.TriggeredButton;
 
 public class OtherModeSelectPanel extends JPanel{
 	Functions f = new Functions();

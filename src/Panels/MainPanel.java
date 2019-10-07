@@ -25,7 +25,7 @@ import Managers.FontManager;
 import Managers.ImageManager;
 import Managers.ManagerManager;
 import Managers.SoundManager;
-import Objects.TriggeredButton;
+import Utility.TriggeredButton;
 
 public class MainPanel extends JPanel{
 	Functions f = new Functions();

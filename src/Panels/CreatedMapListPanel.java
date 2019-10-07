@@ -25,11 +25,11 @@ import Core.Global;
 import Core.Constants.Area;
 import Managers.ImageManager;
 import Managers.ManagerManager;
-import Objects.TriggeredButton;
-import Objects.TriggeredButtonListener;
-import Objects.TriggeredTextArea;
-import Objects.VirtualScroller;
 import Objects.Map.Map;
+import Utility.TriggeredButton;
+import Utility.TriggeredButtonListener;
+import Utility.TriggeredTextArea;
+import Utility.VirtualScroller;
 
 public class CreatedMapListPanel extends JPanel{
 	Functions f = new Functions();

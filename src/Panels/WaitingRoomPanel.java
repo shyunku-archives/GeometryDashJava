@@ -32,10 +32,10 @@ import Network.Engine.NetworkManager;
 import Network.Objects.Chat;
 import Network.Objects.Player;
 import Network.Objects.WaitingRoomInfo;
-import Objects.TriggeredButton;
-import Objects.TriggeredButtonListener;
-import Objects.TriggeredTextArea;
-import Objects.VirtualScroller;
+import Utility.TriggeredButton;
+import Utility.TriggeredButtonListener;
+import Utility.TriggeredTextArea;
+import Utility.VirtualScroller;
 
 public class WaitingRoomPanel extends JPanel{
 	Functions f = new Functions();
@@ -78,9 +78,11 @@ public class WaitingRoomPanel extends JPanel{
 		
 		for(int i=0;i<players.size();i++) {
 			Player cur = players.get(i);
-			f.drawFancyString(g, cur.getPlayerNickname(), 190, 170 + 50*i, 30f, 
-					roomInfo.getRoomMasterName().equals(cur.getPlayerNickname())?Color.YELLOW:Color.WHITE);
-			f.drawFancyString(g, cur.getIpAddress(), 190 + f.getFontWidth(g, cur.getPlayerNickname(), 30f) + 10, 182 + 50*i, 15f);
+			Color c = Color.WHITE;
+			if(cur.getPlayerNickname().equals(myName))c = new Color(100, 250, 100);
+			f.drawFancyString(g, cur.getPlayerNickname(), 190, 170 + 50*i, 30f, c);
+			f.drawFancyString(g, cur.getIpAddress(), 190 + f.getFontWidth(g, cur.getPlayerNickname(), 30f) + 10, 182 + 50*i, 15f,
+					cur.getPlayerNickname().equals(roomInfo.getRoomMasterName())?Color.YELLOW:Color.WHITE);
 			g.drawLine(179, 158 + 50*(i+1), 590, 158 + 50*(i+1));
 		}
 		
@@ -102,9 +104,8 @@ public class WaitingRoomPanel extends JPanel{
 			if(cre < 110)continue;
 			Color c = Color.WHITE;
 			if(cur.isSystemic())c = new Color(255, 40, 255);
-			else if(cur.getSender().equals(roomInfo.getRoomMasterName()))c = Color.YELLOW;
-			else if(cur.getSender().equals(myName))c = new Color(220, 180, 100);
-			f.drawFancyString(g, cur.getSender()+": "+cur.getContent(), 740, cre, 18f, c);
+			else if(cur.getSender().equals(myName))c = new Color(100, 250, 100);
+			f.drawFancyString(g, cur.toMessage(), 740, cre, 18f, c);
 		}
 		g.setClip(save);
 		

@@ -8,12 +8,14 @@ import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import Core.Functions;
+import Managers.ManagerManager;
 import Network.Objects.Player;
 import Network.Objects.WaitingRoomInfo;
 
@@ -84,6 +86,9 @@ public class GameClient {
 								break;
 							}
 						}
+					} catch (SocketException e) {
+						//서버장이 나감
+						ManagerManager.pm.GoToSelectMultiplayModePanel();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

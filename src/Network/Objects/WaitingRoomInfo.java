@@ -53,8 +53,13 @@ public class WaitingRoomInfo extends JsonFormattable{
 		players.add(p);
 	}
 	
-	public void deletePlayer(Player p) {
-		players.remove(p);
+	public void deletePlayer(String name) {
+		for(Player p : players)
+			if(p.getPlayerNickname().equals(name)) {
+				players.remove(p);
+				return;
+			}
+		new FatalException().throwThis();
 	}
 	
 	public int getPlayerNum() {

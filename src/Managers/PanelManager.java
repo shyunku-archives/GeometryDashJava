@@ -85,7 +85,7 @@ public class PanelManager {
 			}
 		}).start();
 	
-		//GoToSelectMultiplayModePanel();
+		GoToCreatedMapListPanel();
 	}
 	
 	public static void GoToMainPanel() {
