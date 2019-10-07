@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collection;
@@ -89,7 +90,10 @@ public class GameServer {
 							}
 						}).start();
 					}
-				} catch (IOException e) {
+				}catch (BindException e) {
+					//클라이언트 하나 나감
+					f.cprint("Someone has leaved...");
+				}catch (IOException e) {
 					e.printStackTrace();
 				} finally {
 					if(serverSocket != null && !serverSocket.isClosed())

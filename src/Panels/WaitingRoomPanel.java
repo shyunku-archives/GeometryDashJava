@@ -142,26 +142,18 @@ public class WaitingRoomPanel extends JPanel{
 	public WaitingRoomPanel(JFrame frame, String IPAddress, String password, String nickname) {
 		init(frame);
 		myName = nickname;
-		try {
-			client = new GameClient(new Player(nickname, InetAddress.getLocalHost().getHostAddress()));
-			client.connect(IPAddress, password);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
+		client = new GameClient(new Player(nickname, f.getVeiledPublicIPofMine()));
+		client.connect(IPAddress, password);
 	}
 	
 	//Create
 	public WaitingRoomPanel(JFrame frame, String password, String nickname) {
 		init(frame);
 		myName = nickname;
-		try {
-			server = new GameServer(new WaitingRoomInfo(nickname+"'s Room", InetAddress.getLocalHost().getHostAddress(), password, nickname));
-			server.start();
-			client = new GameClient(new Player(nickname, InetAddress.getLocalHost().getHostAddress()));
-			client.connect(NetworkManager.LOCALHOST, password);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
+		server = new GameServer(new WaitingRoomInfo(nickname+"'s Room", f.getMyPublicIPAddress(), password, nickname));
+		server.start();
+		client = new GameClient(new Player(nickname, f.getVeiledPublicIPofMine()));
+		client.connect(NetworkManager.LOCALHOST, password);
 	}
 	
 	public void init(JFrame frame) {

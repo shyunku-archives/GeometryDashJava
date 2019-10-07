@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -88,8 +89,11 @@ public class GameClient {
 					}
 				}
 			}).start();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (ConnectException e) {
+			//서버에 연결 실패
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 	

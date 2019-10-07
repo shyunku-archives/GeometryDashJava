@@ -11,5 +11,6 @@ public class FatalException extends Exception{
 		}catch(FatalException e) {
 			e.printStackTrace();
 		}
+		System.exit(-1);
 	}
 }
