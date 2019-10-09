@@ -1,4 +1,4 @@
-package Objects.Map;
+package Map.Core;
 
 import java.io.File;
 
@@ -12,8 +12,8 @@ public class Map{
 	private String info;
 	private File file;
 	
-	public Map(File file) {
-		mapName = Functions.getFilenameNoExtension(file.getName());
+	public Map(File mapFolder) {
+		mapName = mapFolder.getName();
 		this.file = file;
 	}
 

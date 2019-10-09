@@ -19,9 +19,9 @@ import Core.Functions;
 import Core.Global;
 import Managers.ImageManager;
 import Managers.ManagerManager;
+import Map.Core.Map;
+import Map.Engines.ZoomEngine;
 import Objects.DoubleCoordinate;
-import Objects.Map.Map;
-import Objects.Map.ZoomEngine;
 import Utility.TriggeredButton;
 import Utility.TriggeredRadioButtonGroup;
 
@@ -104,13 +104,12 @@ public class EditMapPanel extends JPanel{
 		int dy = origin.y - 300;
 		
 		double newr = rate-1;
-		f.cprint("new rate : "+newr); 
 		
 		origin.x -= newr*dx;
 		origin.y += newr*dy;
 	}
 	
-	private DoubleCoordinate getEditorCoordinate(Point real) {
+	public DoubleCoordinate getEditorCoordinate(Point real) {
 		double dx = real.x - origin.x;
 		double dy = -(real.y - origin.y);
 		dx/=Map.DEFAULT_GRID_SIZE*zoomG.getCurZoomRate();

@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 import Core.Functions;
 import Core.Global;
-import Objects.Map.Map;
+import Map.Core.Map;
 import Panels.CreatedMapListPanel;
 import Panels.EditMapPanel;
 import Panels.LogPanel;
@@ -85,7 +85,7 @@ public class PanelManager {
 			}
 		}).start();
 	
-		GoToCreatedMapListPanel();
+		//GoToCreatedMapListPanel();
 	}
 	
 	public static void GoToMainPanel() {

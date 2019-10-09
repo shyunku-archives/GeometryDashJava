@@ -8,7 +8,7 @@ import javax.swing.JButton;
 
 import Core.Functions;
 
-public class FocusableRadioButton extends JButton implements TriggeredButtonListener{
+public class FocusableRadioButton extends JButton{
 	public BufferedImage focusedImage, unfocusedImage;
 	public Point pos;
 	private boolean isFocused;
@@ -19,6 +19,13 @@ public class FocusableRadioButton extends JButton implements TriggeredButtonList
 		this.unfocusedImage = Functions.getImage(unfocusedImg);
 		this.pos = p;
 		this.isFocused = false;
+		
+		this.setBounds(p.x,p.y, focusedImage.getWidth(), focusedImage.getHeight());
+		this.setFocusable(true);
+		this.setContentAreaFilled(false);
+		this.setFocusPainted(false);
+		this.setBorderPainted(false);
+		this.setVisible(true);
 	}
 	
 	public void focusThis() {
@@ -35,12 +42,5 @@ public class FocusableRadioButton extends JButton implements TriggeredButtonList
 	
 	public void setListener(TriggeredButtonListener listener) {
 		this.listener = listener;
-	}
-
-	@Override
-	public void onClickListener() {
-		// TODO Auto-generated method stub
-		if(listener!=null)
-			listener.onClickListener();
 	}
 }

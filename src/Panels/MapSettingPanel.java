@@ -29,7 +29,7 @@ import Core.Global;
 import Managers.FontManager;
 import Managers.ImageManager;
 import Managers.ManagerManager;
-import Objects.Map.Map;
+import Map.Core.Map;
 import Utility.TriggeredButton;
 
 public class MapSettingPanel extends JPanel{

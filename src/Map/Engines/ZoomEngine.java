@@ -1,4 +1,4 @@
-package Objects.Map;
+package Map.Engines;
 
 public class ZoomEngine {
 	private double[] zoomStage;

@@ -25,7 +25,7 @@ import Core.Global;
 import Core.Constants.Area;
 import Managers.ImageManager;
 import Managers.ManagerManager;
-import Objects.Map.Map;
+import Map.Core.Map;
 import Utility.TriggeredButton;
 import Utility.TriggeredButtonListener;
 import Utility.TriggeredTextArea;
@@ -142,16 +142,10 @@ public class CreatedMapListPanel extends JPanel{
 						WarningStr = "set another name (there is same file name)";
 						return;
 					}
-				File file = new File("AppData\\Maps\\"+name+".gmap");
-				try {
-					file.createNewFile();
-					maps.add(new Map(file));
-					ManagerManager.pm.GoToMapSettingPanel(new Map(file));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					WarningStr = "something is going wrong...";
-				}
+				File file = new File("AppData\\Maps\\"+name);
+				file.mkdirs();
+				maps.add(new Map(file));
+				ManagerManager.pm.GoToMapSettingPanel(new Map(file));
 			}
 			
 		});
@@ -173,45 +167,43 @@ public class CreatedMapListPanel extends JPanel{
 		File folder = new File("AppData\\Maps");
 		int indexA = 0;
 		for(final File fileEntry : folder.listFiles()) {
-			if(!fileEntry.isDirectory()) {
-				if(f.getExtension(fileEntry.getPath()).equals("gmap")) {
-					final int indexB = indexA;
-					maps.add(new Map(fileEntry));
-					TriggeredButton newBtn = new TriggeredButton(new Rectangle(0,0,0,0), ImageManager.NULL);
-					newBtn.addMouseListener(new MouseListener() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							// TODO Auto-generated method stub
-							if(Area.MY_LEVELS_SCROLL_AREA.contains(Global.mouse))
-								ManagerManager.pm.GoToMapSettingPanel(maps.get(indexB));
-						}
+			if(fileEntry.isDirectory()) {
+				final int indexB = indexA;
+				maps.add(new Map(fileEntry));
+				TriggeredButton newBtn = new TriggeredButton(new Rectangle(0,0,0,0), ImageManager.NULL);
+				newBtn.addMouseListener(new MouseListener() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+						if(Area.MY_LEVELS_SCROLL_AREA.contains(Global.mouse))
+							ManagerManager.pm.GoToMapSettingPanel(maps.get(indexB));
+					}
 
-						@Override
-						public void mouseEntered(MouseEvent e) {
-							// TODO Auto-generated method stub
-						}
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+					}
 
-						@Override
-						public void mouseExited(MouseEvent e) {
-							// TODO Auto-generated method stub
-						}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+					}
 
-						@Override
-						public void mousePressed(MouseEvent e) {
-							// TODO Auto-generated method stub
-							
-						}
-
-						@Override
-						public void mouseReleased(MouseEvent e) {
-							// TODO Auto-generated method stub
-							
-						}
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
 						
-					});
-					viewButton.add(newBtn);
-					indexA++;
-				}
+					}
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+				viewButton.add(newBtn);
+				indexA++;
 			}
 		}
 		

@@ -352,6 +352,10 @@ public class Functions<Temp> {
 		g.setFont(FontManager.getFont(size));
 	}
 	
+	public static void drawGameObjectImage(Graphics2D g, int type, int id, int x, int y) {
+		g.drawImage(ManagerManager.im.getGameObjectImage(type, id), null, x, y);
+	}
+	
 	public static void drawImage(Graphics2D g, int flag, int x, int y) {
 		g.drawImage(ManagerManager.im.imageBundle.get(flag), null, x, y);
 	}

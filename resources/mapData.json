@@ -11,21 +11,24 @@
 	},
 	"block":{
 		"default_block": {
-			"id": 1,
+			"id": 0,
 			"imageFileName": "default_block.png",
+			"rotatePeriod": 0,
 		}
 	},
 	"spike": {
 		"default_spike": {
-			"id": 2,
+			"id": 0,
 			"imageFileName": "default_spike.png",
+			"rotatePeriod": 1,
 		}
 	},
 	"jumpball":{
 		"yelloJumpBall":{
-			"id": 3,
+			"id": 0,
 			"imageFileName": "yelloJumpBall.png",
 			"jumpHeight": 2.5,
+			"rotatePeriod": 0,
 		}
 	}
 }

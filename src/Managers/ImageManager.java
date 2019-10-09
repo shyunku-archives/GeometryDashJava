@@ -11,6 +11,9 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import Core.Functions;
+import Exceptions.FatalException;
+import Map.Core.MapObjectImage;
+import Utility.Pair;
 
 public class ImageManager {
 	public static final int NULL = -9999;
@@ -63,7 +66,7 @@ public class ImageManager {
 	public static final int UNFOCUSED_DELETE_BUTTON = 2042;
 	
 	public HashMap<Integer, BufferedImage> imageBundle = new HashMap<>();
-	public HashMap<String, BufferedImage> gameObjectBundle = new HashMap<>();
+	public HashMap<Pair<Integer, Integer>, BufferedImage> gameObjectBundle = new HashMap<>();
 	
 	public ImageManager() {
 		putImage(MAIN_LOGO, "logo.png");
@@ -108,6 +111,39 @@ public class ImageManager {
 		putResizedImage(UNFOCUSED_EDIT_BUTTON, "unfocused_edit_button.png", 0.4f);
 		putResizedImage(FOCUSED_DELETE_BUTTON, "focused_delete_button.png", 0.4f);
 		putResizedImage(UNFOCUSED_DELETE_BUTTON, "unfocused_delete_button.png", 0.4f);
+	}
+	
+	private void getGameObjectImage() {
+		putGameObjectImage(MapObjectImage.TYPE_SPIKE, MapObjectImage.DEFAULT_SPIKE);
+	}
+	
+	public BufferedImage getGameObjectImage(int type, int id) {
+		return gameObjectBundle.get(new Pair(type, id));
+	}
+	
+	private void putGameObjectImage(int type, int id) {
+		try {
+			BufferedImage bi = ImageIO.read(new File(getImagePath(getGameObjectImagePath(type, id))));
+			gameObjectBundle.put(new Pair(type, id), bi);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private static String getGameObjectImagePath(int type, int id) {
+		String typePath = null;
+		switch(type) {
+		case MapObjectImage.TYPE_BLOCK:
+			typePath = "Block";
+			break;
+		case MapObjectImage.TYPE_SPIKE:
+			typePath = "Spike";
+			break;
+		default:
+			new FatalException().throwThis();
+		}
+		return "resources\\image\\Game\\"+typePath+"\\"+id+".png";
 	}
 	
 	public static String getImagePath(String filename) {
