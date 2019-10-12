@@ -43,11 +43,12 @@ public class LogPanel extends JPanel{
 		//f.drawFancyRightAlignedString(g, new String("tick : "+Global.drawTick), rightEnd, startY+heightGap*1, fontsize, Color.ORANGE);
 		f.drawFancyRightAlignedString(g, new String("MAX FPS : "+fpsInterval.toFormat(fps)), rightEnd, startY+heightGap*1, fontsize, Color.ORANGE);
 		f.drawFancyRightAlignedString(g, new String("time : "+elapsed), rightEnd, startY+heightGap*2, fontsize, Color.ORANGE);
+		f.drawFancyRightAlignedString(g, "ping : "+(int)((double)Global.ping/1000000)+"ms", rightEnd, startY+heightGap*3, fontsize, Color.GREEN);
 		Color c = new Color(rate, 255-rate, 0);
-		f.drawFancyRightAlignedString(g, new String("timePerTick : "+tickInterval.toFormat(((double)f.getTickTime())/1000000)+"ms"), rightEnd, startY+heightGap*3, fontsize, c);
+		f.drawFancyRightAlignedString(g, new String("timePerTick : "+tickInterval.toFormat(((double)f.getTickTime())/1000000)+"ms"), rightEnd, startY+heightGap*4, fontsize, c);
 		
-		f.drawFancyRightAlignedString(g, "editor mouse : "+Global.editorMouseCoordinate.getPosByString(), rightEnd, startY+heightGap*5, fontsize, Color.ORANGE);
-		f.drawFancyRightAlignedString(g, "editor origin : "+String.format("(%d,%d)",Global.originCoordinate.x, Global.originCoordinate.y), rightEnd, startY+heightGap*6, fontsize, Color.ORANGE);
+		f.drawFancyRightAlignedString(g, "editor mouse : "+Global.editorMouseCoordinate.getPosByString(), rightEnd, startY+heightGap*6, fontsize, Color.ORANGE);
+		f.drawFancyRightAlignedString(g, "editor origin : "+String.format("(%d,%d)",Global.originCoordinate.x, Global.originCoordinate.y), rightEnd, startY+heightGap*7, fontsize, Color.ORANGE);
 	}
 	
 	public LogPanel(JFrame frame) {

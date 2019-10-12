@@ -13,7 +13,14 @@ import com.google.gson.JsonParser;
 import Core.Functions;
 import Network.Objects.Player;
 
-public class JsonDataGenerator {	
+public class JsonDataGenerator {
+	public JsonElement getPingData(long id, long time) {
+		JsonObject json = new JsonObject();
+		json.addProperty("id", id);
+		json.addProperty("time", time);
+		return json;
+	}
+	
 	public JsonElement getEmptyData() {
 		JsonObject json = new JsonObject();
 		return new Gson().fromJson(json, JsonElement.class);

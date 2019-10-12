@@ -40,8 +40,6 @@ public class Functions<Temp> {
 	
 	public static String getVeiledIPAddress(String original) {
 		String[] bit = original.split("\\.");
-		for(int i=0;i<bit.length;i++)
-			print(bit[i]);
 		if(bit.length!=4)
 			new FatalException().throwThis();
 		return "xx.xx."+bit[2]+"."+bit[3];

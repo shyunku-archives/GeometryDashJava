@@ -56,14 +56,21 @@ public class GameServer {
 										PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 										String request = bufferedReader.readLine();
 										String pretty = JsonDataGenerator.toPrettyFormat(request);
-										f.print("[Server <- Client] Message Received :\n"+pretty);
+										//f.print("[Server <- Client] Message Received :\n"+pretty);
 										
 										int tag = jgen.getTag(request);
+										if(tag!= NetworkManager.PING_TEST)
+											f.print("[Server <- Client] Message Received :\n"+pretty);
 										JsonObject body = new JsonParser().parse(request).getAsJsonObject().get("body").getAsJsonObject();
 										JsonObject head = new JsonParser().parse(request).getAsJsonObject().get("head").getAsJsonObject();
 										sender = head.getAsJsonObject().get("sender").getAsString();
 										
+										String me = roomInfo.getRoomMasterName();
+										
 										switch(tag) {
+										case NetworkManager.PING_TEST:
+											broadcast(sender, jgen.bindAll(NetworkManager.PING_TEST, me, body));
+											break;
 										case NetworkManager.PARTICIPATING_SERVER:
 											if(roomInfo.getPlayerNum() == NetworkManager.MAX_CAPACITY){
 												refuse(NetworkManager.PARTICIPATE_REFUSE_ROOM_FULL, socket);

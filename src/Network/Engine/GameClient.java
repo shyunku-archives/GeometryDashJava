@@ -9,12 +9,14 @@ import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import Core.Functions;
+import Core.Global;
 import Managers.ManagerManager;
 import Network.Objects.Player;
 import Network.Objects.WaitingRoomInfo;
@@ -23,6 +25,9 @@ public class GameClient {
 	private Socket socket;
 	private PrintWriter writer;
 	private Player player;
+	
+	private long pingID = 0;
+	private HashMap<Long, Long> pingEngine = new HashMap<>();
 	
 	Functions f = new Functions();
 	NetworkManager nm = new NetworkManager();
@@ -65,10 +70,12 @@ public class GameClient {
 						while(true) {
 							response = reader.readLine();
 							String pretty = JsonDataGenerator.toPrettyFormat(response);
+							//f.print("[Client <- Server] Message Received :\n"+pretty);
 							int tag = jgen.getTag(response);
 							
 							if(tag!= NetworkManager.WAITING_ROOM_INFO_LOAD)
-								f.print("[Client <- Server] Message Received :\n"+pretty);
+								if(tag!= NetworkManager.PING_TEST)
+									f.print("[Client <- Server] Message Received :\n"+pretty);
 							
 							JsonObject body = new JsonParser().parse(response).getAsJsonObject().get("body").getAsJsonObject();
 							
@@ -78,6 +85,12 @@ public class GameClient {
 								break;
 							case NetworkManager.PARTICIPATE_REFUSE_ROOM_FULL:
 								//방 꽉참
+								break;
+							case NetworkManager.PING_TEST:
+								long id = body.get("id").getAsLong();
+								long time = body.get("time").getAsLong();
+								long now = System.nanoTime();
+								Global.ping = now - time;
 								break;
 							case NetworkManager.PARTICIPATE_ACCPETED:
 								break;
@@ -94,12 +107,44 @@ public class GameClient {
 					}
 				}
 			}).start();
+			
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					while(true) {
+						try {
+							long currentPing = System.nanoTime();
+							long currentID = pingID++;
+							
+							registerPing(currentID, currentPing);
+							
+							sendMessageToServer(jgen.bindAll(NetworkManager.PING_TEST, player.getPlayerNickname(), jgen.getPingData(currentID, currentPing)));
+							
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}).start();
 		} catch (ConnectException e) {
 			//서버에 연결 실패
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	private void registerPing(long id, long cur) {
+		pingEngine.put(id, cur);
+	}
+	
+	private long getPingDiff(long id) {
+		long diff = pingEngine.get(id) - System.nanoTime();
+		pingEngine.remove(id);
+		return diff;
 	}
 	
 	public void sendMessageToServer(String msg){

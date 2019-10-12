@@ -11,6 +11,8 @@ public class NetworkManager {
 	public static final int SERVER_PORT = 10300;
 	public static final int MAX_CAPACITY = 6;
 	
+	public static final int PING_TEST = -9999;
+	
 	public static final int PARTICIPATING_SERVER = 2000;
 	public static final int PARTICIPATE_REFUSE_WRONG_PASSWORD = 2001;
 	public static final int PARTICIPATE_REFUSE_ROOM_FULL = 2002;
