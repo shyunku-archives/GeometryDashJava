@@ -2,6 +2,7 @@ package Panels;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -40,6 +41,7 @@ public class EditMapPanel extends JPanel{
 	
 	TriggeredRadioButtonGroup modeGroup = new TriggeredRadioButtonGroup();
 	GameObjectManager objectManager = new GameObjectManager();
+	TriggeredRadioButtonGroup objectCategory = new TriggeredRadioButtonGroup();
 	
 	
 	@Override
@@ -116,6 +118,7 @@ public class EditMapPanel extends JPanel{
 			}
 		}
 		
+		
 		gp = new GradientPaint(0, 664, Color.WHITE, 0, getSize().height - 50, new Color(0,0,0,0), true);
 		g.setPaint(gp);
 		g.setStroke(new BasicStroke(2));
@@ -123,6 +126,7 @@ public class EditMapPanel extends JPanel{
 		g.drawLine(450, 610, 450, 718);
 		
 		modeGroup.drawAll(g);
+		objectCategory.drawAll(g);
 	}
 	
 	private void forceCameraMoveWhenZoom(double rate) {
@@ -160,6 +164,20 @@ public class EditMapPanel extends JPanel{
 				ImageManager.FOCUSED_DELETE_BUTTON, ImageManager.UNFOCUSED_DELETE_BUTTON, 15, 686);
 		
 		modeGroup.focus(TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON);
+		
+		
+		int alltype = objectManager.getNum(MapObjectImage.TYPE_ALL);
+		for(int i=0;i<alltype;i++) {
+			Pair<Integer, BufferedImage> pair = objectManager.getRepresentType(i);
+			int type = pair.first;
+			int thistype = objectManager.getNum(type);
+			BufferedImage bi = pair.second;
+			int x = i/2;
+			int y = i%2;
+			for(int j=0;j<thistype;j++)
+				objectCategory.addButtons(this, type*1000+j, 150+60*x, 610+60*y, new Dimension(50,50));
+		}
+		objectCategory.focus(MapObjectImage.TYPE_BLOCK*1000+0);
 		
 		zoomInBtn = new TriggeredButton(new Rectangle(30, 300, 60, 60), ImageManager.EDIT_ZOOM_IN_BUTTON);
 		zoomInBtn.addMouseListener(new MouseListener() {

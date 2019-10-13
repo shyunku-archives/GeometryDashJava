@@ -211,6 +211,7 @@ public class Functions<Temp> {
 	public static long getElapsedTime() {
 		return System.currentTimeMillis() - Global.startFlag;
 	}
+	
 	public static BufferedImage dye(BufferedImage image, Color c)
     {
         int w = image.getWidth();
@@ -219,6 +220,17 @@ public class Functions<Temp> {
         Graphics2D g = dyed.createGraphics();
         g.drawImage(image, null,0,0);
         g.setComposite(AlphaComposite.SrcAtop);
+        g.setColor(c);
+        g.fillRect(0,0,w,h);
+        g.dispose();
+        return dyed;
+    }
+	
+	public static BufferedImage dye(int w, int h, Color c)
+    {
+        BufferedImage dyed = new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = dyed.createGraphics();
+        g.setComposite(AlphaComposite.SrcOver);
         g.setColor(c);
         g.fillRect(0,0,w,h);
         g.dispose();

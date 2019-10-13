@@ -1,5 +1,7 @@
 package Utility;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -14,6 +16,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import Core.Functions;
+
 public class TriggeredRadioButtonGroup extends ButtonGroup{
 	private HashMap<Integer, FocusableRadioButton> buttons = new HashMap<>();
 	public int curFocused = -1;
@@ -21,7 +25,7 @@ public class TriggeredRadioButtonGroup extends ButtonGroup{
 	public static final int EDITOR_BUILD_BUTTON = 3000;
 	public static final int EDITOR_EDIT_BUTTON = 3001;
 	public static final int EDITOR_DELETE_BUTTON = 3002;
-	
+	//gameobject = type*1000 + id
 	
 	public void addButtons(JPanel panel, int Flag, int focused, int unfocused, int x, int y) {
 		FocusableRadioButton newBtn = new FocusableRadioButton(focused, unfocused, new Point(x,y));
@@ -62,6 +66,48 @@ public class TriggeredRadioButtonGroup extends ButtonGroup{
 		buttons.put(Flag, newBtn);
 		panel.add(newBtn);
 	}
+	
+	public void addButtons(JPanel panel, int Flag, int x, int y, Dimension d) {
+		FocusableRadioButton newBtn = new FocusableRadioButton(new Point(x,y), d.width, d.height);
+		newBtn.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				focus(Flag);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		buttons.put(Flag, newBtn);
+		panel.add(newBtn);
+	}
+	
+	
 	
 	public void focus(int Flag) {
 		if(curFocused!=-1)

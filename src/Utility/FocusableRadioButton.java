@@ -1,5 +1,6 @@
 package Utility;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 
 import Core.Functions;
+import Managers.ImageManager;
 import Managers.ManagerManager;
 
 public class FocusableRadioButton extends JButton{
@@ -20,7 +22,21 @@ public class FocusableRadioButton extends JButton{
 	
 	public FocusableRadioButton(int focusedImg, int unfocusedImg, Point p) {
 		this.focusedImage = Functions.getImage(focusedImg);
-		this.unfocusedImage = Functions.getImage(unfocusedImg);
+		if(unfocusedImg == -1)
+			this.unfocusedImage = Functions.dye(Functions.getImage(focusedImg), new Color(0,0,0,80));
+		else
+			this.unfocusedImage = Functions.getImage(unfocusedImg);
+		
+		init(p);
+	}
+	
+	public FocusableRadioButton(Point p, int w, int h) {
+		this.unfocusedImage = Functions.resizeImage(Functions.getImage(ImageManager.BLANK),w,h);
+		this.focusedImage = Functions.dye(w, h, new Color(5,20,40,180));
+		init(p);
+	}
+	
+	private void init(Point p) {
 		this.pos = p;
 		this.isFocused = false;
 		
