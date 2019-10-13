@@ -11,6 +11,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,8 +21,12 @@ import Core.Global;
 import Managers.ImageManager;
 import Managers.ManagerManager;
 import Map.Core.Map;
+import Map.Core.MapObjectImage;
+import Map.Engines.GameObjectManager;
 import Map.Engines.ZoomEngine;
 import Objects.DoubleCoordinate;
+import Utility.HierarchySelection;
+import Utility.Pair;
 import Utility.TriggeredButton;
 import Utility.TriggeredRadioButtonGroup;
 
@@ -34,6 +39,7 @@ public class EditMapPanel extends JPanel{
 	Point origin = new Point(200,500);			//원점의 화면상 실제 좌표
 	
 	TriggeredRadioButtonGroup modeGroup = new TriggeredRadioButtonGroup();
+	GameObjectManager objectManager = new GameObjectManager();
 	
 	
 	@Override
@@ -83,11 +89,6 @@ public class EditMapPanel extends JPanel{
 		g.setColor(Color.GREEN);
 		g.drawLine(origin.x, 0, origin.x, getSize().height);
 		
-//		g.setColor(Color.PINK);
-//		Point cent = new Point(getSize().width/2, 300);
-//		g.fillOval(cent.x-3, cent.y-3, 6,6);
-//		g.drawString(getEditorCoordinate(cent).getPosByString(), cent.x, cent.y-7);
-		
 		//EDIT PANEL
 		g.setColor(new Color(0,0,0,200));
 		g.fillRect(0, 600, getSize().width, 300);
@@ -99,11 +100,27 @@ public class EditMapPanel extends JPanel{
 		zoomOutBtn.draw(g);
 		f.drawFancyString(g, "x"+zoomG.getCurZoomRate(), 30, 450, 25f, Color.ORANGE);
 		
+		if(modeGroup.curFocused == TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON) {
+			//빌드 모드 - focus 설정 필요
+			int alltype = objectManager.getNum(MapObjectImage.TYPE_ALL);
+			for(int i=0;i<alltype;i++) {
+				Pair<Integer, BufferedImage> pair = objectManager.getRepresentType(i);
+				int type = pair.first;
+				BufferedImage bi = pair.second;
+				int x = i/2;
+				int y = i%2;
+				f.drawImage(g, ImageManager.EDITOR_OBJECT_SELCET_BUTTON, 150+60*x, 610+60*y);
+				f.drawImage(g, bi, 175+60*x - bi.getWidth()/2, 650+60*y - bi.getHeight());
+//				f.drawFancyString(g, MapObjectImage.typeIntegerToString(type), 
+//						175+60*x - bi.getWidth()/2, 650+60*y - bi.getHeight(), 10f, Color.WHITE);
+			}
+		}
+		
 		gp = new GradientPaint(0, 664, Color.WHITE, 0, getSize().height - 50, new Color(0,0,0,0), true);
 		g.setPaint(gp);
 		g.setStroke(new BasicStroke(2));
 		g.drawLine(140, 610, 140, 718);
-		
+		g.drawLine(450, 610, 450, 718);
 		
 		modeGroup.drawAll(g);
 	}
@@ -133,6 +150,7 @@ public class EditMapPanel extends JPanel{
 		
 		curMap = map;
 		//load
+		
 		
 		modeGroup.addButtons(this, TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON,
 				ImageManager.FOCUSED_BUILD_BUTTON, ImageManager.UNFOCUSED_BUILD_BUTTON, 15, 610);

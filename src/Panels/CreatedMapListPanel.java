@@ -93,7 +93,7 @@ public class CreatedMapListPanel extends JPanel{
 			f.drawImage(g, ImageManager.VIEW_BUTTON, rect.x + 550, rect.y + 25 +i*height - scroll);
 			f.drawFancyString(g, "view", rect.x + 565, rect.y + 30 +i*height - scroll, 40f, Color.WHITE);
 			
-			//viewButton.get(i).setBounds(rect.x + 550, rect.y + 25 +i*height - scroll, 121, 54);
+			viewButton.get(i).setBounds(rect.x + 550, rect.y + 25 +i*height - scroll, 121, 54);
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class CreatedMapListPanel extends JPanel{
 					}
 				
 				maps.add(new Map(name));
-				//ManagerManager.pm.GoToMapSettingPanel(new Map(name));
+				ManagerManager.pm.GoToMapSettingPanel(new Map(name));
 			}
 			
 		});

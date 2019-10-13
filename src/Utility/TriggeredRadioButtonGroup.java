@@ -16,7 +16,7 @@ import javax.swing.JRadioButton;
 
 public class TriggeredRadioButtonGroup extends ButtonGroup{
 	private HashMap<Integer, FocusableRadioButton> buttons = new HashMap<>();
-	int curFocused = -1;
+	public int curFocused = -1;
 	
 	public static final int EDITOR_BUILD_BUTTON = 3000;
 	public static final int EDITOR_EDIT_BUTTON = 3001;

@@ -1,0 +1,19 @@
+{
+  "head": {
+    "createTime": "2019/10/13 23:08:18",
+    "recentUpdate": "2019/10/13 23:08:18",
+    "version": 0,
+    "mapName": "fff"
+  },
+  "body": {
+    "blocks": [],
+    "spikes": [],
+    "jumpBalls": [],
+    "decorations": []
+  },
+  "environment": {
+    "speed": 5.0,
+    "gravity": 2.2,
+    "startPosition": -3.0
+  }
+}

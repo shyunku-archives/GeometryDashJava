@@ -352,7 +352,7 @@ public class Functions<Temp> {
 	}
 	
 	public static void drawGameObjectImage(Graphics2D g, int type, int id, int x, int y) {
-		g.drawImage(ManagerManager.im.getGameObjectImage(type, id), null, x, y);
+		g.drawImage(ManagerManager.im.getGameObjectImage(type, id, 1), null, x, y);
 	}
 	
 	public static void drawImage(Graphics2D g, int flag, int x, int y) {

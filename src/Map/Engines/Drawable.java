@@ -28,7 +28,7 @@ public abstract class Drawable {
 	public Drawable(int type, int id, double rotatePeriod) {
 		this.id = id;
 		this.type = type;
-		this.image = ManagerManager.im.getGameObjectImage(type, id);
+		this.image = ManagerManager.im.getGameObjectImage(type, id, 1);
 		this.pos = new DoubleCoordinate(0, 0);
 		this.rotateAngle = 0;
 	}
