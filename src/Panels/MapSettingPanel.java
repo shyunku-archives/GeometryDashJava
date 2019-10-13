@@ -55,7 +55,7 @@ public class MapSettingPanel extends JPanel{
 		
 		g.setColor(new Color(0,55, 163));
 		g.fillRoundRect(getSize().width/2 - 425, 30, 850, 110, 50, 50);
-		f.drawFancyString(g, curMap.getMapName(), getSize().width/2 - f.getFontWidth(g, curMap.getMapName(), 60f)/2, 55, 65f, Color.WHITE);
+		f.drawFancyString(g, curMap.getHeader().getMapName(), getSize().width/2 - f.getFontWidth(g, curMap.getHeader().getMapName(), 60f)/2, 55, 65f, Color.WHITE);
 		
 		goBackBtn.draw(g, 20, 15);
 		

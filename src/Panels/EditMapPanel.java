@@ -92,9 +92,18 @@ public class EditMapPanel extends JPanel{
 		g.setColor(new Color(0,0,0,200));
 		g.fillRect(0, 600, getSize().width, 300);
 		
+		g.setColor(Color.WHITE);
+		
+		
 		zoomInBtn.draw(g);
 		zoomOutBtn.draw(g);
 		f.drawFancyString(g, "x"+zoomG.getCurZoomRate(), 30, 450, 25f, Color.ORANGE);
+		
+		gp = new GradientPaint(0, 664, Color.WHITE, 0, getSize().height - 50, new Color(0,0,0,0), true);
+		g.setPaint(gp);
+		g.setStroke(new BasicStroke(2));
+		g.drawLine(140, 610, 140, 718);
+		
 		
 		modeGroup.drawAll(g);
 	}
@@ -125,12 +134,12 @@ public class EditMapPanel extends JPanel{
 		curMap = map;
 		//load
 		
-		modeGroup.addButtons(TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON,
+		modeGroup.addButtons(this, TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON,
 				ImageManager.FOCUSED_BUILD_BUTTON, ImageManager.UNFOCUSED_BUILD_BUTTON, 15, 610);
-		modeGroup.addButtons(TriggeredRadioButtonGroup.EDITOR_EDIT_BUTTON,
-				ImageManager.FOCUSED_EDIT_BUTTON, ImageManager.UNFOCUSED_EDIT_BUTTON, 15, 645);
-		modeGroup.addButtons(TriggeredRadioButtonGroup.EDITOR_DELETE_BUTTON,
-				ImageManager.FOCUSED_DELETE_BUTTON, ImageManager.UNFOCUSED_DELETE_BUTTON, 15, 680);
+		modeGroup.addButtons(this, TriggeredRadioButtonGroup.EDITOR_EDIT_BUTTON,
+				ImageManager.FOCUSED_EDIT_BUTTON, ImageManager.UNFOCUSED_EDIT_BUTTON, 15, 648);
+		modeGroup.addButtons(this, TriggeredRadioButtonGroup.EDITOR_DELETE_BUTTON,
+				ImageManager.FOCUSED_DELETE_BUTTON, ImageManager.UNFOCUSED_DELETE_BUTTON, 15, 686);
 		
 		modeGroup.focus(TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON);
 		

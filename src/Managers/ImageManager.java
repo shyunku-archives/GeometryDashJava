@@ -64,6 +64,7 @@ public class ImageManager {
 	public static final int UNFOCUSED_EDIT_BUTTON = 2040;
 	public static final int FOCUSED_DELETE_BUTTON = 2041;
 	public static final int UNFOCUSED_DELETE_BUTTON = 2042;
+	public static final int EDITOR_OBJECT_SELCET_BUTTON = 2043;
 	
 	public HashMap<Integer, BufferedImage> imageBundle = new HashMap<>();
 	public HashMap<Pair<Integer, Integer>, BufferedImage> gameObjectBundle = new HashMap<>();
@@ -111,6 +112,7 @@ public class ImageManager {
 		putResizedImage(UNFOCUSED_EDIT_BUTTON, "unfocused_edit_button.png", 0.4f);
 		putResizedImage(FOCUSED_DELETE_BUTTON, "focused_delete_button.png", 0.4f);
 		putResizedImage(UNFOCUSED_DELETE_BUTTON, "unfocused_delete_button.png", 0.4f);
+		putImage(EDITOR_OBJECT_SELCET_BUTTON, "object_template_button.png", 50, 50);
 	}
 	
 	private void getGameObjectImage() {
@@ -140,14 +142,20 @@ public class ImageManager {
 		case MapObjectImage.TYPE_SPIKE:
 			typePath = "Spike";
 			break;
+		case MapObjectImage.TYPE_JUMPBALL:
+			typePath = "JumpBall";
+			break;
+		case MapObjectImage.TYPE_DECORATION:
+			typePath = "Deco";
+			break;
 		default:
 			new FatalException().throwThis();
 		}
-		return "resources\\image\\Game\\"+typePath+"\\"+id+".png";
+		return "resources\\Image\\Game\\"+typePath+"\\"+id+".png";
 	}
 	
 	public static String getImagePath(String filename) {
-		return "resources\\image\\"+filename;
+		return "resources\\Image\\Default\\"+filename;
 	}
 	
 	private void putImage(int key, String name, int w, int h) {

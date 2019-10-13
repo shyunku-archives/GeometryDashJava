@@ -5,47 +5,41 @@ import java.io.File;
 import Core.Functions;
 
 public class Map{
+	//해당 맵의 모든 정보
 	public static final int DEFAULT_GRID_SIZE = 50;
-	private String mapName;
-	private long createTime;
-	private long recentUpdateTime;
-	private String info;
-	private File file;
 	
-	public Map(File mapFolder) {
-		mapName = mapFolder.getName();
-		this.file = file;
+	private GameEnvironment environment;
+	private MapHeader header;
+	private MapData mapData;
+	
+	public Map(File folder) {
+		environment = new GameEnvironment();
+		
 	}
 
-	public String getMapName() {
-		return mapName;
+	public GameEnvironment getEnvironment() {
+		return environment;
 	}
 
-	public void setMapName(String mapName) {
-		this.mapName = mapName;
+	public void setEnvironment(GameEnvironment environment) {
+		this.environment = environment;
 	}
 
-	public long getCreateTime() {
-		return createTime;
+	public MapHeader getHeader() {
+		return header;
 	}
 
-	public void setCreateTime(long createTime) {
-		this.createTime = createTime;
+	public void setHeader(MapHeader header) {
+		this.header = header;
 	}
 
-	public long getRecentUpdateTime() {
-		return recentUpdateTime;
+	public MapData getMapData() {
+		return mapData;
 	}
 
-	public void setRecentUpdateTime(long recentUpdateTime) {
-		this.recentUpdateTime = recentUpdateTime;
+	public void setMapData(MapData mapData) {
+		this.mapData = mapData;
 	}
-
-	public String getInfo() {
-		return info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
-	}
+	
+	
 }

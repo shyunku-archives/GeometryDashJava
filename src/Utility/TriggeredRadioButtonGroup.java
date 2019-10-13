@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 public class TriggeredRadioButtonGroup extends ButtonGroup{
@@ -22,7 +23,7 @@ public class TriggeredRadioButtonGroup extends ButtonGroup{
 	public static final int EDITOR_DELETE_BUTTON = 3002;
 	
 	
-	public void addButtons(int Flag, int focused, int unfocused, int x, int y) {
+	public void addButtons(JPanel panel, int Flag, int focused, int unfocused, int x, int y) {
 		FocusableRadioButton newBtn = new FocusableRadioButton(focused, unfocused, new Point(x,y));
 		newBtn.addMouseListener(new MouseListener() {
 
@@ -59,11 +60,13 @@ public class TriggeredRadioButtonGroup extends ButtonGroup{
 		});
 		
 		buttons.put(Flag, newBtn);
+		panel.add(newBtn);
 	}
 	
 	public void focus(int Flag) {
 		if(curFocused!=-1)
 			buttons.get(curFocused).unfocusThis();
+		curFocused = Flag;
 		buttons.get(Flag).focusThis();
 	}
 	

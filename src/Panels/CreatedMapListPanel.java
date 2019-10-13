@@ -89,7 +89,7 @@ public class CreatedMapListPanel extends JPanel{
 		for(int i=0;i<maps.size();i++) {
 			int height = 100;
 			g.drawLine(rect.x, rect.y+(i+1)*height - scroll, rect.x+rect.width, rect.y+(i+1)*height - scroll);
-			f.drawFancyString(g, maps.get(i).getMapName(), rect.x + 25, rect.y + 10 +i*height - scroll, 45f, Color.WHITE);
+			f.drawFancyString(g, maps.get(i).getHeader().getMapName(), rect.x + 25, rect.y + 10 +i*height - scroll, 45f, Color.WHITE);
 			f.drawImage(g, ImageManager.VIEW_BUTTON, rect.x + 550, rect.y + 25 +i*height - scroll);
 			f.drawFancyString(g, "view", rect.x + 565, rect.y + 30 +i*height - scroll, 40f, Color.WHITE);
 			
@@ -138,7 +138,7 @@ public class CreatedMapListPanel extends JPanel{
 					return;
 				}
 				for(int i=0;i<maps.size();i++)
-					if(maps.get(i).getMapName().equals(name)) {
+					if(maps.get(i).getHeader().getMapName().equals(name)) {
 						WarningStr = "set another name (there is same file name)";
 						return;
 					}

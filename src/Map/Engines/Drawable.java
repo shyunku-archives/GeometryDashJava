@@ -16,20 +16,24 @@ public abstract class Drawable {
 	protected BufferedImage image;
 	protected int id;
 	protected int type;
+	protected int layer;
 	protected DoubleCoordinate pos;
 	protected int rotateAngle;
+	protected double rotatePeriod;
 	
 	protected Functions f = new Functions();
 	
 	public abstract void draw(Graphics2D g, double zoomRate);
 	
-	public Drawable(int type, int id) {
+	public Drawable(int type, int id, double rotatePeriod) {
 		this.id = id;
 		this.type = type;
 		this.image = ManagerManager.im.getGameObjectImage(type, id);
 		this.pos = new DoubleCoordinate(0, 0);
 		this.rotateAngle = 0;
 	}
+	
+	
 	
 	public Dimension getSize() {
 		return new Dimension(image.getWidth(), image.getHeight());

@@ -85,7 +85,7 @@ public class PanelManager {
 			}
 		}).start();
 	
-		//GoToCreatedMapListPanel();
+		GoToCreatedMapListPanel();
 	}
 	
 	public static void GoToMainPanel() {

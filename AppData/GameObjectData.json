@@ -1,32 +1,27 @@
+//rotatePeriod : 회전가능한 각도(deg)
 "data": {
-	"recentUpdate": "201910052100",
-	"version": "1.0",
-	"environment": {
-		"defaultSpeed": 5,
+	"defaultEnvironment": {
+		"speed": 5,
 		"gravity": 2.2,
 		"startPosition": -3,
-			"editMode":{
-			}
-		}
 	},
 	"block":{
 		"default_block": {
 			"id": 0,
-			"imageFileName": "default_block.png",
 			"rotatePeriod": 0,
 		}
 	},
 	"spike": {
 		"default_spike": {
 			"id": 0,
-			"imageFileName": "default_spike.png",
 			"rotatePeriod": 1,
 		}
+	},
+	"decoration": {
 	},
 	"jumpball":{
 		"yelloJumpBall":{
 			"id": 0,
-			"imageFileName": "yelloJumpBall.png",
 			"jumpHeight": 2.5,
 			"rotatePeriod": 0,
 		}
