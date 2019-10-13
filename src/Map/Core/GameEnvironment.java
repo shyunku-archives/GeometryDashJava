@@ -1,6 +1,8 @@
 package Map.Core;
 
-public class GameEnvironment {
+import Network.Engine.JsonFormattable;
+
+public class GameEnvironment extends JsonFormattable{
 	private double speed;
 	private double gravity;
 	private double startPosition;

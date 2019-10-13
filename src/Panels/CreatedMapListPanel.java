@@ -93,7 +93,7 @@ public class CreatedMapListPanel extends JPanel{
 			f.drawImage(g, ImageManager.VIEW_BUTTON, rect.x + 550, rect.y + 25 +i*height - scroll);
 			f.drawFancyString(g, "view", rect.x + 565, rect.y + 30 +i*height - scroll, 40f, Color.WHITE);
 			
-			viewButton.get(i).setBounds(rect.x + 550, rect.y + 25 +i*height - scroll, 121, 54);
+			//viewButton.get(i).setBounds(rect.x + 550, rect.y + 25 +i*height - scroll, 121, 54);
 		}
 	}
 	
@@ -142,10 +142,9 @@ public class CreatedMapListPanel extends JPanel{
 						WarningStr = "set another name (there is same file name)";
 						return;
 					}
-				File file = new File("AppData\\Maps\\"+name);
-				file.mkdirs();
-				maps.add(new Map(file));
-				ManagerManager.pm.GoToMapSettingPanel(new Map(file));
+				
+				maps.add(new Map(name));
+				//ManagerManager.pm.GoToMapSettingPanel(new Map(name));
 			}
 			
 		});

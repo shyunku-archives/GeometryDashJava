@@ -261,6 +261,7 @@ public class Functions<Temp> {
 //	}
 	
 	public static void drawFancyString(Graphics2D g, String str, int x, int y, float size, Color internalColor) {
+		if(str==null)return;
 		if(str.length()==0)return;
 		AffineTransform orig = g.getTransform();
 		Font f = FontManager.getFont(size);

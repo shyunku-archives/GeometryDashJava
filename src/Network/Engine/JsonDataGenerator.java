@@ -49,6 +49,11 @@ public class JsonDataGenerator {
 		return bind(data);
 	}
 	
+	public static JsonObject ElementToObject(JsonElement element) {
+		Gson gson = new Gson();
+		return gson.fromJson(element, JsonObject.class);
+	}
+	
 	public static String bind(JsonObject object) {
 		Gson gson = new Gson();
 		return gson.toJson(object);
