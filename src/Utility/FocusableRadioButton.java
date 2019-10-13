@@ -27,16 +27,16 @@ public class FocusableRadioButton extends JButton{
 		else
 			this.unfocusedImage = Functions.getImage(unfocusedImg);
 		
-		init(p);
+		init(p, true);
 	}
 	
 	public FocusableRadioButton(Point p, int w, int h) {
 		this.unfocusedImage = Functions.resizeImage(Functions.getImage(ImageManager.BLANK),w,h);
 		this.focusedImage = Functions.dye(w, h, new Color(5,20,40,180));
-		init(p);
+		init(p, false);
 	}
 	
-	private void init(Point p) {
+	private void init(Point p, boolean cursorChange) {
 		this.pos = p;
 		this.isFocused = false;
 		
@@ -53,19 +53,22 @@ public class FocusableRadioButton extends JButton{
 				// TODO Auto-generated method stub
 				if(listener!=null)
 					listener.onClickListener();
-				ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				if(cursorChange)
+					ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				if(cursorChange)
+					ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				if(cursorChange)
+					ManagerManager.pm.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			}
 
 			@Override

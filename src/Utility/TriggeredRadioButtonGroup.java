@@ -18,7 +18,7 @@ import javax.swing.JRadioButton;
 
 import Core.Functions;
 
-public class TriggeredRadioButtonGroup extends ButtonGroup{
+public abstract class TriggeredRadioButtonGroup extends ButtonGroup{
 	private HashMap<Integer, FocusableRadioButton> buttons = new HashMap<>();
 	public int curFocused = -1;
 	
@@ -34,7 +34,8 @@ public class TriggeredRadioButtonGroup extends ButtonGroup{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				focus(Flag);
+				if(isTouchable())
+					focus(Flag);
 			}
 
 			@Override
@@ -74,7 +75,8 @@ public class TriggeredRadioButtonGroup extends ButtonGroup{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				focus(Flag);
+				if(isTouchable())
+					focus(Flag);
 			}
 
 			@Override
@@ -128,4 +130,6 @@ public class TriggeredRadioButtonGroup extends ButtonGroup{
 			buttons.get(id).draw(g);
 		}
 	}
+	
+	public abstract boolean isTouchable();
 }

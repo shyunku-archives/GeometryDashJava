@@ -39,9 +39,10 @@ public class EditMapPanel extends JPanel{
 	TriggeredButton zoomInBtn, zoomOutBtn;
 	Point origin = new Point(200,500);			//원점의 화면상 실제 좌표
 	
-	TriggeredRadioButtonGroup modeGroup = new TriggeredRadioButtonGroup();
+	TriggeredRadioButtonGroup modeGroup;
+	TriggeredRadioButtonGroup objectCategory;
 	GameObjectManager objectManager = new GameObjectManager();
-	TriggeredRadioButtonGroup objectCategory = new TriggeredRadioButtonGroup();
+	
 	
 	
 	@Override
@@ -116,6 +117,15 @@ public class EditMapPanel extends JPanel{
 //				f.drawFancyString(g, MapObjectImage.typeIntegerToString(type), 
 //						175+60*x - bi.getWidth()/2, 650+60*y - bi.getHeight(), 10f, Color.WHITE);
 			}
+			int curtype = objectCategory.curFocused/1000;
+			int num = objectManager.getNum(curtype);
+			for(int i=0;i<num;i++) {
+				int x = i/2;
+				int y = i%2;
+				BufferedImage bi = f.getGameObject(curtype, i, 30, 30);
+				f.drawImage(g, ImageManager.EDITOR_OBJECT_SELCET_BUTTON, 460+60*x, 610+60*y);
+				f.drawImage(g, bi, 485+60*x - bi.getWidth()/2, 650+60*y - bi.getHeight());
+			}
 		}
 		
 		
@@ -155,7 +165,12 @@ public class EditMapPanel extends JPanel{
 		curMap = map;
 		//load
 		
-		
+		modeGroup = new TriggeredRadioButtonGroup() {
+			@Override
+			public boolean isTouchable() {
+				return true;
+			}
+		};
 		modeGroup.addButtons(this, TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON,
 				ImageManager.FOCUSED_BUILD_BUTTON, ImageManager.UNFOCUSED_BUILD_BUTTON, 15, 610);
 		modeGroup.addButtons(this, TriggeredRadioButtonGroup.EDITOR_EDIT_BUTTON,
@@ -165,7 +180,13 @@ public class EditMapPanel extends JPanel{
 		
 		modeGroup.focus(TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON);
 		
-		
+		objectCategory = new TriggeredRadioButtonGroup() {
+			@Override
+			public boolean isTouchable() {
+				return modeGroup.curFocused == TriggeredRadioButtonGroup.EDITOR_BUILD_BUTTON;
+			}
+			
+		};
 		int alltype = objectManager.getNum(MapObjectImage.TYPE_ALL);
 		for(int i=0;i<alltype;i++) {
 			Pair<Integer, BufferedImage> pair = objectManager.getRepresentType(i);

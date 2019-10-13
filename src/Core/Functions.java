@@ -33,6 +33,10 @@ import Managers.ManagerManager;
 import Objects.SoundTrack;
 
 public class Functions<Temp> {
+	public static BufferedImage getGameObject(int tag, int id, int w, int h) {
+		return ManagerManager.im.getGameObjectImage(tag, 0, 30, 30);
+	}
+	
 	public static String getVeiledPublicIPofMine() {
 		String original = getMyPublicIPAddress();
 		return getVeiledIPAddress(original);
