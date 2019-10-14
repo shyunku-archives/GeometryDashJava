@@ -26,6 +26,9 @@ public abstract class Drawable {
 	public void draw(Graphics2D g, double zoomRate) {
 		DoubleCoordinate p = this.getPreciseRealCoordinate(pos, zoomRate);
 		double rate = zoomRate;
+		if(image == null) {
+			this.image = ManagerManager.im.getGameObjectImage(type, id, 50, 50);//format
+		}
 		f.drawResizedImage(g, this.image, (int)p.x,
 				(int)(p.y - image.getHeight()*rate), (int)(image.getWidth()*rate), (int)(image.getHeight()*rate));
 	}

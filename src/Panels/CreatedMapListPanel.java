@@ -168,7 +168,9 @@ public class CreatedMapListPanel extends JPanel{
 		for(final File fileEntry : folder.listFiles()) {
 			if(fileEntry.isDirectory()) {
 				final int indexB = indexA;
-				maps.add(new Map(fileEntry));
+				Map newone = new Map(fileEntry);
+				newone.printJson();
+				maps.add(newone);
 				TriggeredButton newBtn = new TriggeredButton(new Rectangle(0,0,0,0), ImageManager.NULL);
 				newBtn.addMouseListener(new MouseListener() {
 					@Override

@@ -241,7 +241,6 @@ public class EditMapPanel extends JPanel{
 		});
 		
 		curMap = map;
-		curMap.printJson();
 		//load
 		
 		modeGroup = new TriggeredRadioButtonGroup() {

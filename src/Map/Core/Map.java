@@ -21,9 +21,9 @@ import Exceptions.FatalException;
 import Network.Engine.JsonDataGenerator;
 import Network.Engine.JsonFormattable;
 
-public class Map{
+public class Map extends JsonFormattable{
 	//해당 맵의 모든 정보
-	public static final int DEFAULT_GRID_SIZE = 50;
+	public static transient final int DEFAULT_GRID_SIZE = 50;
 	
 	private GameEnvironment environment;
 	private MapHeader header;
@@ -40,19 +40,14 @@ public class Map{
 				builder.append(line);
 				builder.append(System.getProperty("line.separator"));
 			}
-				
 			String data = builder.toString();
 			
 			JsonObject dataObject = new JsonParser().parse(data).getAsJsonObject();
-			JsonElement envData = dataObject.get("environment");
-			JsonElement headData = dataObject.get("head");
-			JsonElement bodyData = dataObject.get("body");
+			Map thismap = new Gson().fromJson(dataObject, Map.class);
 			
-			
-			environment = new Gson().fromJson(envData, GameEnvironment.class);
-			header = new Gson().fromJson(headData, MapHeader.class);
-			mapData = new Gson().fromJson(envData, MapData.class);
-			
+			this.environment = thismap.environment;
+			this.header = thismap.header;
+			this.mapData = thismap.mapData;			
 		} catch (IOException e) {
 			new FatalException().throwThis();
 		}
@@ -66,7 +61,7 @@ public class Map{
 		
 		//save
 		File file = new File("AppData\\Maps\\"+mapName+"\\data.json");
-		String data = getJson();
+		String data = getgJson();
 		file.getParentFile().mkdirs();
 		try {
 			file.createNewFile();
@@ -86,13 +81,13 @@ public class Map{
 		
 	}
 	public void printJson() {
-		String data = getJson();
+		String data = getgJson();
 		Functions.print(data);
 	}
 	
 	public void saveThis() {
 		File file = new File("AppData\\Maps\\"+header.getMapName()+"\\data.json");
-		String data = getJson();
+		String data = getgJson();
 		
 		try {
 			PrintWriter out = new PrintWriter(file);
@@ -105,18 +100,13 @@ public class Map{
 		}
 	}
 	
-	private String getJson() {
+	private String getgJson() {
 		JsonDataGenerator jgen = new JsonDataGenerator();
 		Gson gson = new Gson();
-		JsonObject data = new JsonObject();
+		String str = gson.toJson(this.getJson());
 		
-		data.add("head", header.getJson());
-		data.add("body", mapData.getJson());
-		data.add("environment", environment.getJson());
 		
-		String fin = jgen.bind(data);
-		
-		return JsonDataGenerator.toPrettyFormat(fin);
+		return jgen.toPrettyFormat(str);
 	}
 
 	public GameEnvironment getEnvironment() {
