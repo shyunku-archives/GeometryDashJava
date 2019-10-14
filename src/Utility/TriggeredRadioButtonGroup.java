@@ -109,7 +109,16 @@ public abstract class TriggeredRadioButtonGroup extends ButtonGroup{
 		panel.add(newBtn);
 	}
 	
-	
+	public void printStatus() {
+		Functions.print("Button Status --------");
+		Set<Integer> keyset = buttons.keySet();
+		Iterator iter = keyset.iterator();
+		Functions.print("id\t\tstatus");
+		while(iter.hasNext()) {
+			int cur = (int)iter.next();
+			Functions.print(cur+"\t\t"+(buttons.get(cur).getFocus()?"focused":"unfocused"));
+		}
+	}
 	
 	public void focus(int Flag) {
 		if(curFocused!=-1)
@@ -123,12 +132,18 @@ public abstract class TriggeredRadioButtonGroup extends ButtonGroup{
 	}
 	
 	public void drawAll(Graphics2D g) {
+		if(!this.isTouchable())return;
 		Set set = buttons.keySet();
 		Iterator<Integer> iter = set.iterator();
+		Color c = g.getColor();
+		g.setColor(Color.WHITE);
 		while(iter.hasNext()) {
 			int id = iter.next();
+			FocusableRadioButton bt= buttons.get(id);
 			buttons.get(id).draw(g);
+			g.drawString(""+id, bt.getX(), bt.getY());
 		}
+		g.setColor(c);
 	}
 	
 	public abstract boolean isTouchable();

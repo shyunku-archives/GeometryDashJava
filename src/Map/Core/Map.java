@@ -85,6 +85,25 @@ public class Map{
 		}
 		
 	}
+	public void printJson() {
+		String data = getJson();
+		Functions.print(data);
+	}
+	
+	public void saveThis() {
+		File file = new File("AppData\\Maps\\"+header.getMapName()+"\\data.json");
+		String data = getJson();
+		
+		try {
+			PrintWriter out = new PrintWriter(file);
+			out.flush();
+			out.print(data);
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	private String getJson() {
 		JsonDataGenerator jgen = new JsonDataGenerator();

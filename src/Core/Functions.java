@@ -367,8 +367,8 @@ public class Functions<Temp> {
 		g.setFont(FontManager.getFont(size));
 	}
 	
-	public static void drawGameObjectImage(Graphics2D g, int type, int id, int x, int y) {
-		g.drawImage(ManagerManager.im.getGameObjectImage(type, id, 1), null, x, y);
+	public static void drawGameObjectImage(Graphics2D g, int type, int id, int x, int y, int w, int h) {
+		g.drawImage(ManagerManager.im.getGameObjectImage(type, id, w, h), null, x, y);
 	}
 	
 	public static void drawImage(Graphics2D g, int flag, int x, int y) {
@@ -381,6 +381,11 @@ public class Functions<Temp> {
 	
 	public static void drawResizedImage(Graphics2D g, int flag, int x, int y, int w, int h) {
 		BufferedImage resized = resizeImage(flag, w, h);
+		g.drawImage(resized, null, x, y);
+	}
+	
+	public static void drawResizedImage(Graphics2D g, BufferedImage bi, int x, int y, int w, int h) {
+		BufferedImage resized = resizeImage(bi, w, h);
 		g.drawImage(resized, null, x, y);
 	}
 	

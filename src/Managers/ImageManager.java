@@ -65,6 +65,7 @@ public class ImageManager {
 	public static final int UNFOCUSED_DELETE_BUTTON = 2042;
 	public static final int EDITOR_OBJECT_SELCET_BUTTON = 2043;
 	public static final int BLANK = 2044;
+	public static final int EDITOR_SAVE_MAP_BUTTON = 2045;
 	
 	public HashMap<Integer, BufferedImage> imageBundle = new HashMap<>();
 	public HashMap<Integer, HashMap<Integer, BufferedImage>> gameObjectBundle = new HashMap<>();
@@ -115,6 +116,7 @@ public class ImageManager {
 		putResizedImage(UNFOCUSED_DELETE_BUTTON, "unfocused_delete_button.png", 0.4f);
 		putImage(EDITOR_OBJECT_SELCET_BUTTON, "object_template_button.png", 50, 50);
 		putImage(BLANK, "blank.png");
+		putImage(EDITOR_SAVE_MAP_BUTTON, "save_button.png", 60, 50);
 		
 		this.setAllGameObjectImage();
 	}

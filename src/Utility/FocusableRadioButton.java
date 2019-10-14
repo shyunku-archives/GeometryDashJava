@@ -86,6 +86,10 @@ public class FocusableRadioButton extends JButton{
 		});
 	}
 	
+	public boolean getFocus() {
+		return isFocused;
+	}
+	
 	public void focusThis() {
 		isFocused = true;
 	}

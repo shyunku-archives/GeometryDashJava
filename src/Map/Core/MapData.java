@@ -1,5 +1,6 @@
 package Map.Core;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import Map.Objects.Block;
@@ -18,16 +19,30 @@ public class MapData extends JsonFormattable{
 		super();
 	}
 	
-	public ArrayList<Block> getBlocks() {
-		return blocks;
+	public void addBlock(Block block) {
+		blocks.add(block);
 	}
-	public ArrayList<Spike> getSpikes() {
-		return spikes;
+	
+	public void addSpike(Spike spike) {
+		spikes.add(spike);
 	}
-	public ArrayList<JumpBall> getJumpBalls() {
-		return jumpBalls;
+	
+	public void addJumpBall(JumpBall jumpBall) {
+		jumpBalls.add(jumpBall);
 	}
-	public ArrayList<Decoration> getDecorations() {
-		return decorations;
+	
+	public void addDecoration(Decoration decoration) {
+		decorations.add(decoration);
+	}
+	
+	public void drawAll(Graphics2D g, double zoomRate) {
+		for(Block block : blocks)
+			block.draw(g, zoomRate);
+		for(Spike spike : spikes)
+			spike.draw(g, zoomRate);
+		for(JumpBall jumpBall : jumpBalls)
+			jumpBall.draw(g, zoomRate);
+		for(Decoration decoration : decorations)
+			decoration.draw(g, zoomRate);
 	}
 }

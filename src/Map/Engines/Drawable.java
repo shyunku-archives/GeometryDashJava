@@ -13,7 +13,7 @@ import Map.Core.Map;
 import Objects.DoubleCoordinate;
 
 public abstract class Drawable {
-	protected BufferedImage image;
+	protected transient BufferedImage image;
 	protected int id;
 	protected int type;
 	protected int layer;
@@ -21,15 +21,21 @@ public abstract class Drawable {
 	protected int rotateAngle;
 	protected double rotatePeriod;
 	
-	protected Functions f = new Functions();
+	protected transient Functions f = new Functions();
 	
-	public abstract void draw(Graphics2D g, double zoomRate);
+	public void draw(Graphics2D g, double zoomRate) {
+		DoubleCoordinate p = this.getPreciseRealCoordinate(pos, zoomRate);
+		double rate = zoomRate;
+		f.drawResizedImage(g, this.image, (int)p.x,
+				(int)(p.y - image.getHeight()*rate), (int)(image.getWidth()*rate), (int)(image.getHeight()*rate));
+	}
 	
-	public Drawable(int type, int id, double rotatePeriod) {
+	public Drawable(int type, int id, double rotatePeriod, DoubleCoordinate editorPos) {
 		this.id = id;
 		this.type = type;
-		this.image = ManagerManager.im.getGameObjectImage(type, id, 1);
-		this.pos = new DoubleCoordinate(0, 0);
+		this.image = ManagerManager.im.getGameObjectImage(type, id, 50, 50);//format
+		this.layer = 0;
+		this.pos = editorPos;
 		this.rotateAngle = 0;
 	}
 	
@@ -75,5 +81,14 @@ public abstract class Drawable {
 		dx = dx + origin.x;
 		dy = origin.y - dy;
 		return new Point((int)dx, (int)dy);
+	}
+	
+	public DoubleCoordinate getPreciseRealCoordinate(DoubleCoordinate editPos, double zoomRate) {
+		Point origin = Global.originCoordinate;
+		double dx = editPos.x*Map.DEFAULT_GRID_SIZE*zoomRate;
+		double dy = editPos.y*Map.DEFAULT_GRID_SIZE*zoomRate;
+		dx = dx + origin.x;
+		dy = origin.y - dy;
+		return new DoubleCoordinate(dx, dy);
 	}
 }
