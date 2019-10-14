@@ -9,6 +9,7 @@ import Network.Engine.JsonFormattable;
 public class Player extends JsonFormattable{
 	private String playerNickname;
 	private String ipAddress;
+	private int playerSkinID;
 	
 	public Player(String playerNickname, String ipAddress) {
 		super();

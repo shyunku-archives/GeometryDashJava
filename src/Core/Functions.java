@@ -33,6 +33,10 @@ import Managers.ManagerManager;
 import Objects.SoundTrack;
 
 public class Functions<Temp> {
+	public static BufferedImage getPlayerSkinImage(String pathName, int id) {
+		return ManagerManager.im.playerSkinBundle.get(pathName).get(id);
+	}
+	
 	public static BufferedImage getGameObject(int tag, int id, int w, int h) {
 		return ManagerManager.im.getGameObjectImage(tag, 0, 30, 30);
 	}

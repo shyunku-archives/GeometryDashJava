@@ -84,7 +84,8 @@ public class MainPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				ManagerManager.pm.GoToOfflineMapSelectPanel();
+				//임시 비활성화
+				//ManagerManager.pm.GoToOfflineMapSelectPanel();
 			}
 
 			@Override

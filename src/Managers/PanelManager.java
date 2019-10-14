@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import Core.Functions;
 import Core.Global;
+import Game.LocalGamePanel;
 import Map.Core.Map;
 import Panels.CreatedMapListPanel;
 import Panels.EditMapPanel;
@@ -32,6 +33,7 @@ public class PanelManager {
 	public static EditMapPanel editMapPanel;
 	public static SelectMultiplayModePanel selectMultiplayModePanel;
 	public static WaitingRoomPanel waitingRoomPanel;
+	public static LocalGamePanel localGamePanel;
 	
 	public static void InitialExecute() {
 		Functions.setInitialFrameBounds(frame);
@@ -142,6 +144,14 @@ public class PanelManager {
 		
 		frame.add(logPanel);
 		frame.add(selectMultiplayModePanel);
+	}
+	
+	public static void GoToLocalGamePanel(Map map) {
+		frame.getContentPane().removeAll();
+		localGamePanel = new LocalGamePanel(frame, map);
+		
+		frame.add(logPanel);
+		frame.add(localGamePanel);
 	}
 	
 	public static void GoToWaitingRoomPanel(boolean isCreator, String IPAddress, String password, String nickname) {

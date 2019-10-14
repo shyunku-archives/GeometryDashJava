@@ -60,7 +60,7 @@ public class Map extends JsonFormattable{
 		mapData = new MapData();
 		
 		//save
-		File file = new File("AppData\\Maps\\"+mapName+"\\data.json");
+		File file = new File("AppData\\Maps\\Local\\"+mapName+"\\data.json");
 		String data = getgJson();
 		file.getParentFile().mkdirs();
 		try {
@@ -86,7 +86,7 @@ public class Map extends JsonFormattable{
 	}
 	
 	public void saveThis() {
-		File file = new File("AppData\\Maps\\"+header.getMapName()+"\\data.json");
+		File file = new File("AppData\\Maps\\Local\\"+header.getMapName()+"\\data.json");
 		String data = getgJson();
 		
 		try {

@@ -67,9 +67,15 @@ public class ImageManager {
 	public static final int BLANK = 2044;
 	public static final int EDITOR_SAVE_MAP_BUTTON = 2045;
 	
+	public static final int PLAYER_SKIN_NORMAL_TYPE = 10000;
+	public static final int PLAYER_SKIN_FLIGHT_TYPE = 10001;
+	public static final int PLAYER_SKIN_FLIP_TYPE = 10002;
+	
+	
 	public HashMap<Integer, BufferedImage> imageBundle = new HashMap<>();
 	public HashMap<Integer, HashMap<Integer, BufferedImage>> gameObjectBundle = new HashMap<>();
 	//type, id, bi
+	public HashMap<String, HashMap<Integer, BufferedImage>> playerSkinBundle = new HashMap<>();
 	
 	public ImageManager() {
 		putImage(MAIN_LOGO, "logo.png");
@@ -119,6 +125,7 @@ public class ImageManager {
 		putImage(EDITOR_SAVE_MAP_BUTTON, "save_button.png", 60, 50);
 		
 		this.setAllGameObjectImage();
+		this.setAllPlayerSkinImage();
 	}
 	
 	private void setAllGameObjectImage() {
@@ -136,7 +143,32 @@ public class ImageManager {
 		}
 	}
 	
-	//¿œ¥‹ ≥≤∞‹µ“
+	private void setAllPlayerSkinImage() {
+		String path = "resources\\Image\\PlayerSkin";
+		File folder = new File(path);
+		for(final File entry : folder.listFiles()) {
+			if(!entry.isDirectory())continue;
+			String foldername = entry.getName();
+			for(final File inter : entry.listFiles()) {
+				String fileIndex = Functions.getFilenameNoExtension(inter.getName());
+				int id = Integer.parseInt(fileIndex);
+				try {
+					BufferedImage bi = ImageIO.read(inter);
+					if(playerSkinBundle.get(foldername)==null) {
+						HashMap<Integer, BufferedImage> bundle = new HashMap<>();
+						bundle.put(id, bi);
+						playerSkinBundle.put(foldername, bundle);
+					}else {
+						playerSkinBundle.get(foldername).put(id, bi);
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	public BufferedImage getGameObjectImage(int type, int id, float ratio) {
 		BufferedImage img = gameObjectBundle.get(type).get(id);
 		if(ratio == 1) return img;
@@ -166,6 +198,10 @@ public class ImageManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private static String getPlayerSkinImagePath(int id) {
+		return "resources\\Image\\PlayerSkin\\"+id+".png";
 	}
 	
 	private static String getGameObjectImagePath(int type, int id) {

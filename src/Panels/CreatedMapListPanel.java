@@ -163,7 +163,7 @@ public class CreatedMapListPanel extends JPanel{
 			
 		});
 		
-		File folder = new File("AppData\\Maps");
+		File folder = new File("AppData\\Maps\\Local");
 		int indexA = 0;
 		for(final File fileEntry : folder.listFiles()) {
 			if(fileEntry.isDirectory()) {

@@ -6,7 +6,7 @@ import java.awt.Point;
 import Objects.DoubleCoordinate;
 
 public class Global {
-	public static String version = "v0.8.0.0_beta";
+	public static String version = "v0.8.1.0_beta";
 	public static Point mouse = new Point(0,0);
 	
 	public static boolean isLogViewMode = true;
